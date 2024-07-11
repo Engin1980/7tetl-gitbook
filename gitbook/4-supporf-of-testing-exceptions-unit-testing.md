@@ -150,7 +150,7 @@ Common data types are:
 
 In a very simplified way, the hierarchy of exceptions is shown in the figure.
 
-
+![Exceptions hierarchy](Imgs/4-exceptions.jpg)
 
 
 
