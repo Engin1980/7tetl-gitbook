@@ -267,7 +267,62 @@ This output tells us that the the class (`eng.some.class`) was not found (`Class
 
 ### Exception chaining
 
-TODO
+Another important point is exception chaining. The application is mostly built in layers, as shown in the following figure. Consider an example where the application stores data entered by the user in a database.
+
+!\[Application layers)(Imgs/4-layers.jpg)
+
+A higher layer always asks a lower layer to perform an action. Of course, if an error occurs on a lower layer, the error will flow to the higher layer in the same, gradual way. However, the exception does not have to remain the same - higher layer receiving the exception from a lower layer can augment the exception with some additional information specifying the error more closely, as shown in the next figure.
+
+!\[Application layers - chained exceptions]\(Imgs/4-layers-exceptions.jpg)
+
+As you can see, the layer at each level has its own information that it can provide to the error:
+
+* The lowest layer may say that the SQL operation failed because the database server refused to store a value in some column.
+* A higher layer can add that the save failed for a specific table.
+* The upper layer reports that an error occurred while working with the database.
+* An even higher layer will report that, in general, the user's save action failed.&#x20;
+
+The separate information of each layer is insufficient to diagnose the error, but by putting the information together, an accurate picture of the problem can be obtained.&#x20;
+
+So what about exceptions? Above the `ex` object, an internal error (submerged, chained) can be obtained by calling the `getCause()` method:&#x20;
+
+* If this method returns null, there is no nested exception.
+* If this method returns an object (an instance of the `Throwable` class, see exception types above), this is nested information. The `getMessage()` method can of course be called above the nested object, and it is possible to check whether another exception is not nested in the nested exception with the `getCause()` method.&#x20;
+
+A loop to allow deep exception traversal with a step-by-step listing would look like this:
+
+```java
+try{  
+  // throws an error
+  throw x;
+  
+} catch (Exception ex){
+  
+  // take an exception into variable 't'
+  Throwable t = ex; 
+  
+  // while 't' is not null (= empty)
+  while (t != null){
+    
+    // print current 't' message
+    // optionally, you can print the class here too (see above)
+    System.out.println(t.getMessage());
+    
+    // try to obtain a nested (chained) exception)
+    // if there is not nested exception, null is returned
+    t = t.getCause();       
+  }  
+} 
+```
+
+For the image example above, the output listing should look like this (an exception per line):
+
+```
+User saving failed.
+Database operation failed.
+Error when accessing table "User".
+SQL failed: invalid value for column "Password".
+```
 
 
 
