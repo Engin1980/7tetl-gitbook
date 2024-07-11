@@ -476,11 +476,11 @@ Attention! In order for assert statements to work, Java Virtual Machines must be
 
 In IDEA, enabling 'assert' keyword may be a bit tricky because you need to be familiar a bit with the IDEA _run configurations_.&#x20;
 
-!\[IDEA Configuration selector]\(4-idea-configuration-selector.jpg)
+![IDEA Configuration selector](Imgs/4-idea-configuration-selector.jpg)
 
 In IDEA, when you start the program (via keyboard shortcut or using a green arrow/bug icon), the current so-called configuration is executed (see the image above). This configuration specifies an action, which should be executed. If a new project is created, there is a default 'Current File' configuration trying to find the `main()` method in the currently opened file and run it. To enable asserts, we need to create an explicit 'Run Main()' configuration, which will be altered later.&#x20;
 
-!\[IDEA Configuration generator]\(4-idea-configuration-generator.jpg)
+![IDEA Configuration generator](Imgs/4-idea-configuration-generator.jpg)
 
 To create an explicit run configuration, open the file with `main()` method and look for the green arrow to the left of it. By pressing the arrow icon, select "Run ...". When done, the application starts, and a new 'Main' configuration is created - see the change in the configuration window.
 
@@ -488,9 +488,9 @@ To create an explicit run configuration, open the file with `main()` method and 
 
 Once the "Main" configuration is available, open the dropdown menu and select "Edit configurations". Check for the "VM Options" text field in th eopened window. If the field is not visible, select "Modify options" and from the list, select "Add VM Options." Now, the field should be visible.
 
-!\[IDEA Configuration Detail - Add VM Option]\(4-idea-configuration-add-vm.jpg)
+![IDEA Configuration Detail - Add VM Option](Imgs/4-idea-configuration-add-vm.jpg)
 
-!\[IDEA Configuration Detail - Enabling asserts]\(4-idea-configuration-enable-ea.jpg)
+![IDEA Configuration Detail - Enabling asserts](Imgs/4-idea-configuration-enable-ea.jpg)
 
 In the "VM Options" text field enter the value "-ea". This tells Java Virtual Machine to process the asserts.
 
