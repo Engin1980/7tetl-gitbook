@@ -169,7 +169,7 @@ try {
 With this variant, two branches of catch blocks were created:
 
 * The first branch catches an exception of the FileNotFoundException type, which occurs if the specified file does not exist. The application can respond to this type of error, for example, by prompting the user to enter another file or to check the inserted media.
-* The second branch catches an exception of the IOException type, which occurs in the case of working with a file, i.e. if, for example, it will not be possible to read from the file for some reason.&#x20;
+* The second branch catches an exception of the IOException type, which occurs in the case of working with a file, i.e. if, for example, it will not be possible to read from the file for some reason.
 
 So, the programmer can choose how to handle these two errors. In addition, a third catch block can be added to the code to catch other potential errors that may arise, for example as follows:
 
@@ -225,7 +225,7 @@ try {
 Conversion failed: For input string: "Hello"
 ```
 
-It's a bit more specific information than a general message, and you can immediately tell that the conversion failed because the input for the conversion was the input string "hello".&#x20;
+It's a bit more specific information than a general message, and you can immediately tell that the conversion failed because the input for the conversion was the input string "hello".
 
 Typically, the type (= class) of error is also important information - sometimes even the type of error is important to understand what is actually wrong. The following code performs (some unspecified) operation and includes catching an error and printing a message:
 
@@ -267,9 +267,212 @@ This output tells us that the the class (`eng.some.class`) was not found (`Class
 
 ### Exception chaining
 
-TODO
+Another important point is exception chaining. The application is mostly built in layers, as shown in the following figure. Consider an example where the application stores data entered by the user in a database.
 
+![Application layers](Imgs/4-layers.jpg)
 
+A higher layer always asks a lower layer to perform an action. Of course, if an error occurs on a lower layer, the error will flow to the higher layer in the same, gradual way. However, the exception does not have to remain the same - higher layer receiving the exception from a lower layer can augment the exception with some additional information specifying the error more closely, as shown in the next figure.
+
+![Application layers - chained exceptions](Imgs/4-layer-exceptions.jpg)
+
+As you can see, the layer at each level has its own information that it can provide to the error:
+
+* The lowest layer may say that the SQL operation failed because the database server refused to store a value in some column.
+* A higher layer can add that the save failed for a specific table.
+* The upper layer reports that an error occurred while working with the database.
+* An even higher layer will report that, in general, the user's save action failed.
+
+The separate information of each layer is insufficient to diagnose the error, but by putting the information together, an accurate picture of the problem can be obtained.
+
+So what about exceptions? Above the `ex` object, an internal error (submerged, chained) can be obtained by calling the `getCause()` method:
+
+* If this method returns null, there is no nested exception.
+* If this method returns an object (an instance of the `Throwable` class, see exception types above), this is nested information. The `getMessage()` method can of course be called above the nested object, and it is possible to check whether another exception is not nested in the nested exception with the `getCause()` method.
+
+A loop to allow deep exception traversal with a step-by-step listing would look like this:
+
+```java
+try{  
+  // throws an error
+  throw x;
+  
+} catch (Exception ex){
+  
+  // take an exception into variable 't'
+  Throwable t = ex; 
+  
+  // while 't' is not null (= empty)
+  while (t != null){
+    
+    // print current 't' message
+    // optionally, you can print the class here too (see above)
+    System.out.println(t.getMessage());
+    
+    // try to obtain a nested (chained) exception)
+    // if there is not nested exception, null is returned
+    t = t.getCause();       
+  }  
+} 
+```
+
+For the image example above, the output listing should look like this (an exception per line):
+
+```
+User saving failed.
+Database operation failed.
+Error when accessing table "User".
+SQL failed: invalid value for column "Password".
+```
+
+### Monitoring the run through try-catch-finally
+
+When debugging exception catching, it is important to be aware of how the code runs in individual blocks. It is important to realize which blocks and which parts of them are executed, so that it is clear which statements will be executed, where to put any statements and which variables it is appropriate to monitor.&#x20;
+
+For a closer idea, the following code will be considered.
+
+```java
+System.out.println("Before try-catch-finally");
+
+try{
+  System.out.println("Inside try-block, first command");
+  System.out.println("Inside try-block, second command");
+} catch (Exception ex){
+  System.out.println("Inside first catch-block.");
+} catch (Error ex){
+  System.out.println("Inside second catch-block.");
+} finally {
+  System.out.println("Inside finally-block");
+}
+
+System.out.println("After try-catch-finally"); 
+```
+
+This code does not cause an error and it is convenient to see which phases it went through according to the output of the running application:
+
+```
+Before try-catch-finally
+Inside try-block, first command
+Inside try-block, second command
+Inside finally-block
+After try-catch-finally
+```
+
+Therefore, in the case of a flawless passage:
+
+1. A statement before `try-catch-finally` ran.
+2. Both statements in the `try` block were executed.
+3. The `finally` block took place.
+4. The statement behind `try-catch-finally` ran.&#x20;
+
+Subsequently, we modify the code - we insert our own invocation of the exception:
+
+```java
+System.out.println("Before try-catch-finally");
+
+try{
+  System.out.println("Inside try-block, first command");
+  throw new Exception("Fail!");  // let's throw an exception here
+  System.out.println("Inside try-block, second command");
+} catch (Exception ex){
+  System.out.println("Inside first catch-block.");
+} catch (Error ex){
+  System.out.println("Inside second catch-block.");
+} finally {
+  System.out.println("Inside finally-block");
+}
+
+System.out.println("After try-catch-finally"); 
+```
+
+The output changes to:
+
+```
+Before try-catch-finally
+Inside try-block, first command
+Inside first catch-block.
+Inside finally-block
+After try-catch-finally
+```
+
+It is important to note that:
+
+* The `try` block is not executed to the end, but ends with a statement that raises an error.
+* The error is handled by the first `catch` block because the error is of type `Exception` and the block catches an error of type `Exception`.&#x20;
+
+So the code goes through the stages:
+
+1. A statement before `try-catch-finally` ran.
+2. The first statement in `try` has run.
+3. An error occurred in the `try`.
+4. The first `catch` block took place.
+5. The `finally` block took place.
+6. A block was run behind the `try-catch-finally`.&#x20;
+
+If we slightly modify the code by changing the type of the error being raised:
+
+```java
+System.out.println("Before try-catch-finally");
+
+try{
+  System.out.println("Inside try-block, first command");
+  throw new Error("Fail!");  // let's throw a  error (not exception(!)) here
+  System.out.println("Inside try-block, second command");
+} catch (Exception ex){
+  System.out.println("Inside first catch-block.");
+} catch (Error ex){
+  System.out.println("Inside second catch-block.");
+} finally {
+  System.out.println("Inside finally-block");
+}
+
+System.out.println("After try-catch-finally"); 
+```
+
+..., we get the output:
+
+```
+Before try-catch-finally
+Inside try-block, first command
+Inside second catch-block.
+Inside finally-block
+After try-catch-finally
+```
+
+It's important to note here that this time the error is handled by the second catch block:
+
+1. A statement before `try-catch-finally` ran.
+2. The first statement in `try` has run.
+3. An error occurred in the `try`.
+4. The second `catch` block took place.
+5. The `finally` block took place.
+6. A block was run behind the `try-catch-finally`.&#x20;
+
+This must be taken into account. Important conclusions:&#x20;
+
+* In the event of an error, the `try` block may not run completely. Commands after the command that throws the error **are not executed**.
+* During debugging, it is necessary to estimate which block causes the error and handle it appropriately.
+* The finally `block` is always executed. (The `finally` block is executed even if there is a `return` statement in the code of the `catch` block exiting the current function.)
+
+### Keyword _assert_
+
+The `assert` keyword is one of the simple variants that can be used to replace the previous technique of monitoring continuous statements. Java allows you to write this keyword anywhere in the code and use it to test a condition that must be true in that part of the code. If the condition is not true, the execution of the applications stops and `AssertError` is raised.&#x20;
+
+The basic notations of the assert command are:
+
+```
+assert <condition>;
+assert <condition> : "Message";
+```
+
+The "condition" is an expression that returns true/false. If the value of the expression is false, the program execution is terminated and an error is raised - either a general text (in the case of using the first-line variant without its own error message), or a custom message text (in the case of using the second-line variant with its custom error message).&#x20;
+
+{% hint style="danger" %}
+The keyword `assert` works only if assertions are enabled in the Java Virtual Machine. See the paragraph below.
+{% endhint %}
+
+Attention! In order for assert statements to work, Java Virtual Machines must be notified to take them into account. This is done using the –ea switch in the virtual machine parameters. In the NetBeans environment, this can be done by calling up the context menu above the project and choosing Properties.
+
+TODO continue
 
 
 
