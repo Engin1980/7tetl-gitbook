@@ -51,6 +51,8 @@ In the figure, you can notice:
 
 Removing a breakpoint is done in the same way as adding one.&#x20;
 
+**Example**
+
 A demonstration of behavior follows. Let's have the following simple code in the main() method.
 
 ```java
@@ -70,16 +72,15 @@ Now let's run the application.
 
 If we start the application classically – F6 – without debug mode, the application will run to the end, it will terminate and the sum statement obtained by line 13 – i.e. the value 12 – will appear on the console.
 
-However, if we start the application in debug mode - Ctrl+F5, the application will start in _DebugRun_ mode and then gets interrupted in _Stepping_ mode (see next chapter) on line 12 after reaching the breakpoint. This will be signaled by a green colored line:
+However, if we start the application in debug mode - Ctrl+F5, the application will start in _DebugRun_ mode and then gets interrupted in _Stepping_ mode (see next chapter) on line 12 after reaching the breakpoint. This will be signaled by a blue colored line:
 
-TODO 5-example-run.jpg
 ![Example 1 - executed code, breakpoint hit](Imgs/5-example-run.jpg)
 
 The blue-colored line says that the application is in a suspended state, in stepping debugging mode. The highlighted line indicates a command that is yet to be executed.
 
 In the stepping mode, you can dynamically add or remove additional breakpoints to the application: just place (or remove) them again.
 
-To resume the application run from suspended mode, use F9 key or the green arrow in the _Debug_ toolbar
+To resume the application run from suspended mode, use F9 key or the green arrow in the _Debug_ toolbar:
 
 ![Example 1 - 'resume' button location](Imgs/5-example-how-resume.jpg)
 
@@ -87,7 +88,7 @@ To resume the application run from suspended mode, use F9 key or the green arrow
 Do not use the common _Run_ or _Debug-Run_ commands from the toolbar. Those commands will try to start another instance of your application. Once the application is started in the _Debug-Run_ mode, all related stuff is available using the _Debug_ window, typically located at the bottom of the screen.
 {% endhint %}
 
-Another example.
+**Another example**
 
 If we place two breakpoints in the program, the application will stop when the first one is reached. Consider a program that generates an array of numbers and then sums them. Finally it prints the result.
 
@@ -126,6 +127,8 @@ General rules using breakpoints for transitions between debug-run and stepping s
 * does not encounter a breakpoint (switches to the stepping state).
 
 ## Using a breakpoint to monitor the application's progress
+
+TODO
 
 
 
