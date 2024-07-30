@@ -37,7 +37,7 @@ A breakpoint can be placed in two simple ways:
 Note that the exact keyboard shorcuts can be changed. Always refer to your Idea settings to check for the correct keyboard shortcut.
 {% endhint %}
 
-![Example of a breakpoint](Imgs/5-demo-breakpoing.jpg)
+![Example of a breakpoint](Imgs/5-demo-breakpoint.jpg)
 
 The purple circle shows where to click to insert a breakpoint. Insertion of a breakpoint is reflected by coloring the line with a reddish color and a circle icon of the same color. The following figure shows the insertion of a breakpoint on all command lines.
 
