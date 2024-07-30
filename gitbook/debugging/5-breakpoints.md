@@ -64,7 +64,7 @@ public static void main(String[] args) {
 
 The method adds two numbers and prints the result. We place a breakpoint on the addition line.
 
-TODO 5-example-prepared.jpg
+![Example 1 - a prepared breakpoint](Imgs/5-example-prepared.jpg)
 
 Now let's run the application.
 
@@ -73,6 +73,7 @@ If we start the application classically – F6 – without debug mode, the appli
 However, if we start the application in debug mode - Ctrl+F5, the application will start in _DebugRun_ mode and then gets interrupted in _Stepping_ mode (see next chapter) on line 12 after reaching the breakpoint. This will be signaled by a green colored line:
 
 TODO 5-example-run.jpg
+![Example 1 - executed code, breakpoint hit](Imgs/5-example-run.jpg)
 
 The blue-colored line says that the application is in a suspended state, in stepping debugging mode. The highlighted line indicates a command that is yet to be executed.
 
@@ -80,7 +81,7 @@ In the stepping mode, you can dynamically add or remove additional breakpoints t
 
 To resume the application run from suspended mode, use F9 key or the green arrow in the _Debug_ toolbar
 
-TODO 5-example-how-resume.jpg
+![Example 1 - 'resume' button location](Imgs/5-example-how-resume.jpg)
 
 {% hint style="info" %}
 Do not use the common _Run_ or _Debug-Run_ commands from the toolbar. Those commands will try to start another instance of your application. Once the application is started in the _Debug-Run_ mode, all related stuff is available using the _Debug_ window, typically located at the bottom of the screen.
@@ -110,11 +111,11 @@ public static void main(String[] args) {
 
 Place two breakpoints in the program and then start the program. The program first stops at the first breakpoint.
 
-TODO Fig 5-example2-A.jpg
+![Example 2 - Prepared breakpoints, first one hit](Imgs/5-example2-A.jpg)
 
 If the programmer now wants to continue the calculation, he presses the F9 key and the program runs until it hits the second breakpoint:
 
-TODO Fig 5-example2-B.jpg
+![Example 2 - Prepared breakpoings, second one hit](Imgs/5-example2-B.jpg)
 
 If the programmer now starts the program again, the program will reach the end (because there is no more breakpoint in the run path) and will exit.
 
