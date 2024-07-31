@@ -22,6 +22,10 @@ For interface, SFL4J2 or Log4J-api are commonly used ensuring the basic operatio
 
 In our case, we will show Log4J2-based solution.
 
+{% hint style="info" %}
+We will show only basic concepts of Log4J2 here. For full documentation, visit [https://logging.apache.org/log4j/2.x/manual/](https://logging.apache.org/log4j/2.x/manual/).
+{% endhint %}
+
 ## Minimal working example
 
 To set up the project in Idea for logging, a several steps have to be done:
@@ -71,7 +75,7 @@ Once the refresh is done, the project contains valid references to the required 
 
 To set up the logging framework, you typically can use two main approaches:
 
-* set up the environment using a source code, or
+* set up the environment using a source code,
 * set up the environment using a configuration file.
 
 Setting up the environment using the source code is easier, as you simply call some methods with appropriate parameters. The disadvantage of this approach is that the settings are dependent on the compilation. That means if you need to change the logging configuration (like changing the reported log level), you need to recompile the whole source code.
@@ -82,6 +86,10 @@ The Log4J2 configuration file is in XML format. The file is called `log4j2.xml`.
 
 {% hint style="info" %}
 Note that the file name is `log4j2.xml`, not `log4j.xml`. The file name differs between Log4J v1 and Log4J2.
+{% endhint %}
+
+{% hint style="info" %}
+For more experienced users, there is also the possibility to set up the logging using `.properties` or `.yaml` files. For more detailed info, see [https://logging.apache.org/log4j/2.x/manual/configuration.html#AutomaticConfiguration](https://logging.apache.org/log4j/2.x/manual/configuration.html#AutomaticConfiguration).
 {% endhint %}
 
 Set the content of the file as follows:
@@ -209,6 +217,24 @@ File appender is used to write the message into the file. You have to specify th
 
 Similarly to file appender, this appender is used to save the message into the file. Moreover, it checks the content of the output file and add the ability to delete/rewrite old records based on the record age or maximal file size.
 
+```xml
+<RollingFile name="rollingLogFile"
+             fileName="R:/rollLog.txt"
+             filePattern="R:/rollLog-%i.txt">
+    <Policies>
+        <SizeBasedTriggeringPolicy size="100kB"/>
+    </Policies>
+    <DefaultRolloverStrategy max="4"/>
+    <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+    </PatternLayout>
+</RollingFile>
+```
+
+The example above shows an appender, which creates a file `rollLog.txt`. Once, during logging, the file size exceeds 100 kB, it renames the file as `rollLog-1.txt` and creates a new file `rollLog.txt`. Once the newly created file exceeds 100 kB, it renames `rollLog-1.txt` to `rollLog-2.txt`, the file `rollLog.txt` to `rollLog-1.txt` and creates a new file `rollLog.txt`for writing. Once the file `rollLog-5.txt` should be created, it will be deleted (maximum 4 files with indices will be kept). &#x20;
+
+However, rolling file appender has many other parameters and for further study we suggest to read the documentation (see the link below).
+
 ### JPA apender
 
 JPA apender is used to write log messages into relational database using Java Persistence API. The target JPA persistence unit and the target database must be specified at least.
@@ -219,25 +245,7 @@ JPA apender is used to write log messages into relational database using Java Pe
      entityClassName="cz.ou.kip.LogEntity" />
 ```
 
-If you are not using JPA in the project and need to log into the database, you may use the low lever JDBC Appender
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###
-
-###
+If you are not using JPA in the project and need to log into the database, you may use the low lever JDBC Appender.
 
 ### Other interesting appenders
 
@@ -252,11 +260,288 @@ The following appenders will not be described in more detail, but may be useful:
 For more info, follow the documentation at [https://logging.apache.org/log4j/2.x/manual/appenders.html](https://logging.apache.org/log4j/2.x/manual/appenders.html).
 {% endhint %}
 
+## Loggers
 
+### Logger definition
+
+Loggers are defined in the configuration file in the `Loggers` element. By default, at least the default `root` logger should be defined:
+
+```xml
+<Loggers>
+    <Root level="trace">
+        <AppenderRef ref="console" />
+    </Root>
+</Loggers>
+```
+
+However, if required, you can add your custom logger settings (referenced by the logger name) with different log level and/or different appender.
+
+```xml
+<Loggers>
+    <Logger name="cz.osu.WebApi" level="info" />
+    <Logger name="cz.osu.Mailer" level="error">
+        <AppenderRef ref="file" />
+    </Logger>
+    <Root level="trace">
+        <AppenderRef ref="console" />
+    </Root>
+</Loggers>
+```
+
+Here, we added two new loggers:
+
+* `cz.osu.WebApi` will capture only `info` messages or higher. Moreover, it has no defined appender, therefore the `root`appender will be used instead.
+* `cz.osu.Mailer` will capture only `error` and `fatal` log levels. It has also its own custom appender.
+
+Moreover, if we build log names on packages and class names, it works with hierarchy:
+
+```xml
+<Loggers>
+    <Logger name="cz.osu" level="info" />
+    <Logger name="cz.osu.Mailer" level="error">
+        <AppenderRef ref="file" />
+    </Logger>
+    <Root level="trace">
+        <AppenderRef ref="console" />
+    </Root>
+</Loggers>
+```
+
+Here, all the classes (or their respective loggers) in `cz.osu` package will match the first logger definition.  Moreover, only the class `cz.osuMailer` will match the second logger.
+
+Note, that all of the loggers will also match the third, `root` logger. Therefore, every log message from `cz.osu.Mailer` will be logged three times. As this is not required, we typically disable a feature called _additivity_ by updating:
+
+```xml
+<Loggers>
+    <Logger name="cz.osu" level="info" additivity="false" />
+    <Logger name="cz.osu.Mailer" level="error" additivity="false">
+        <AppenderRef ref="file" />
+    </Logger>
+    <Root level="trace">
+        <AppenderRef ref="console" />
+    </Root>
+</Loggers>
+```
+
+### Logger instantiation
+
+A new logger is created using `LogManager` by calling a method `createLogger()`. You can provide a name for the logger. If no name is provided, a name of the current class will be used.&#x20;
+
+{% hint style="warning" %}
+Note that if you defined custom logger in the configuration as mentioned in the previous setction, the logger name must match the name in the configuration file.
+{% endhint %}
+
+Typically, the name of the logger reflects the name of the class, where the logger is created. The idea is that such class is some component responsible for some operation and reporting its progress via the logger.&#x20;
+
+```java
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+...
+
+Logger aLogger = LogManager.getLogger(); // creates a logger with the name of the current class
+Logger bLogger = LogManager.getLogger("MyCustomLogger"); // creates a logger with the custom name
+Logger cLogger = LogManager.getLogger(MyComponent.class); // creates a logger for class "MyComponent"
+```
+
+Note: As loggers are typically shared across the component, they are very often  `static` and `final`.
 
 {% hint style="info" %}
-
+For more info about loggers, see  [https://logging.apache.org/log4j/2.x/manual/usage.html](https://logging.apache.org/log4j/2.x/manual/usage.html).
 {% endhint %}
+
+## Layouts
+
+Layout defines, how the message is written using the handler/appender. They are defined inside the appenders, e.g.:
+
+```xml
+<Console name="console" target="SYSTEM_OUT">
+         <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json"/>
+<!--     <HtmlLayout datePattern="ISO8601" timezone="GMT+0"/>-->
+<!--     <PatternLayout pattern="%c :: %d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>-->
+</Console>
+```
+
+In Log4J2, there are several predefined layouts:
+
+* Pattern - to format message by a custom pattern.
+* CSV layout - to produce output in CSV format
+* HTML layout - to produce output as HTML table
+* JSON Template layout - to produce JSON format
+* XML layout - to produce XML otput.
+
+For the ilustration, we will introduce only three of them.
+
+### Pattern layout
+
+Pattern layout offers the possibility to create a custom output message based on a defined pattern. Pattern layout is introduced by a `PatternLayout` element with `pattern`attribute:
+
+```xml
+<Configuration name="default" packages="">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%c :: %d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+The pattern item consists of leading % sign, format modifier and conversion character. For exact definition see the documentation. However, the most common modifiers are:
+
+| Modifier | Meaning                                  |
+| -------- | ---------------------------------------- |
+| c        | Loggger name                             |
+| d        | Current date                             |
+| l        | Location, where the logging occured. \*) |
+| F        | File, where the logging occured. \*)     |
+| L        | Line, where the logging occured. \*)     |
+| M        | Method, where the logging occured. \*)   |
+| n        | Line separator.                          |
+| p        | Log level.                               |
+| tid      | Thread id.                               |
+| tn       | Thread name.                             |
+| m        | Log message.                             |
+
+If applied on the previous example, we can see that:
+
+* `%c` - prints the logger name,
+* `%d{...}` - logs the current time in the specified format,
+* %p - prints the log level (info/debug/warning/...),
+* %m - prints the log message, and
+* %n - prints the new line separator.
+
+The output may look like:
+
+```
+Main log :: 2024-07-31 21:46:32 DEBUG Debug log message
+Main log :: 2024-07-31 21:46:32 INFO Info log message
+Main log :: 2024-07-31 21:46:32 ERROR Error log message
+```
+
+{% hint style="info" %}
+For more precise pattern definition, see documentation at [https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout).
+{% endhint %}
+
+### HTML layout
+
+HTML layout produces the output table with the logged information. It is defined using `HtmlLayout` tag.
+
+```xml
+<Configuration name="default" packages="">
+    <Appenders>       
+        <File name="htmlLogFile" fileName="r:/log.html">
+            <HtmlLayout datePattern="ISO8601"
+                        timezone="GMT+0"
+                        locationInfo="true"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="htmlLogFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+```
+
+The provided output wil look like:
+
+TODO Imgs/3-log-html.jpg
+
+### JSON layout
+
+JSON layout produces output in the JSON format. It is defined using `JsonTemplateLayout`element.
+
+```xml
+<Configuration name="default" packages="">
+    <Appenders>
+        <File name="jsonLogFile" fileName="r:/jsonLog.json">
+            <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="jsonLogFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+Moreover, JSON layout requires additional dependency in `pom.xml` maven file:
+
+```xml
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-layout-template-json</artifactId>
+    <version>2.23.1</version>
+</dependency>
+```
+
+Then, the output will look like:
+
+```json
+{"@timestamp":"2024-07-31T19:57:21.096Z","ecs.version":"1.2.0","log.level":"DEBUG","message":"Debug log message","process.thread.name":"main","log.logger":"Main log"}
+{"@timestamp":"2024-07-31T19:57:21.099Z","ecs.version":"1.2.0","log.level":"INFO","message":"Info log message","process.thread.name":"main","log.logger":"Main log"}
+{"@timestamp":"2024-07-31T19:57:21.099Z","ecs.version":"1.2.0","log.level":"ERROR","message":"Error log message","process.thread.name":"main","log.logger":"Main log"}
+```
+
+{% hint style="info" %}
+For more information about JSON layout, see [https://logging.apache.org/log4j/2.x/manual/json-template-layout.html](https://logging.apache.org/log4j/2.x/manual/json-template-layout.html).
+{% endhint %}
+
+## Filters
+
+Filter is a tool able to select the log messages based on a condition. Filters are defined inside of the appenders. Again, there are several filters implemented. For simplicity, we will introduce only two of them.
+
+### Level-Range filter
+
+This filter allows to specify a custom log-level range to pass. Only messages in the predefined log-level range will pass the filter.
+
+```xml
+...
+<Console name="Console">
+  <LevelRangeFilter minLevel="debug" maxLevel="info"/>
+  <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+</Console>
+...
+```
+
+### Regex filter
+
+This filter is able to check log message and compare it with the regular expressions.&#x20;
+
+{% hint style="info" %}
+Regular expressions is a advanced technique used to compare/work with strings. Its syntax allows easy check if a string contains (or not) a required sequence of characters.
+
+As we do not expect the reader is familiar with the regular expression syntax, we will show only a simple examples here.
+{% endhint %}
+
+```xml
+...
+<Console name="Console">
+  <LevelRangeFilter minLevel="debug" maxLevel="info"/>
+  <RegexFilter regex=".* html .*" onMatch="DENY"/>
+</Console>
+...
+```
+
+This filter defines the regex `.* html .*` with the meaning:
+
+* `.*` means sequence of any characters of any length,
+* &#x20;`html` means exact substring \[space]-h-t-m-l-\[space].
+
+Therefore, this filter says: if message contains `html` ,  deny the message (`onMatch=DENY`).
+
+{% hint style="info" %}
+Again, for more information about filters, see documentation at [https://logging.apache.org/log4j/2.x/manual/filters.html](https://logging.apache.org/log4j/2.x/manual/filters.html).
+{% endhint %}
+
+
 
 
 
