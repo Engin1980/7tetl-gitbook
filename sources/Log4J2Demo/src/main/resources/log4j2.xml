@@ -1,0 +1,21 @@
+<Configuration name="default" packages="">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-10c{1} (%tid) :: %-10d{HH:mm:ss} %-8p %m%n"/>
+        </Console>
+        <File name="file" fileName="r:/log.txt">
+            <PatternLayout>
+                <Pattern>%-25d %-8p %-30c{3.} %tid :: %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="cz.osu.prf.kip.workers" level="trace" additivity="false">
+            <AppenderRef ref="file" level="trace" />
+            <AppenderRef ref="console" level="info" />
+        </Logger>
+        <Root level="trace">
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
