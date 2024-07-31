@@ -63,7 +63,7 @@ Open the file and add the dependencies section with the dependencies for Log4J2 
 
 Then, open the Maven sidebar and refresh the project
 
-TODO Imgs/3-maven.jpg
+![Maven sidebar](Imgs/3-maven.jpg)
 
 {% hint style="info" %}
 Note the version line in lines added to `pom.xml`. The version number should be adjusted to the most recent one.
@@ -451,7 +451,7 @@ HTML layout produces the output table with the logged information. It is defined
 
 The provided output wil look like:
 
-TODO Imgs/3-log-html.jpg
+![HTML log output](Imgs/3-log-html.jpg)
 
 ### JSON layout
 
