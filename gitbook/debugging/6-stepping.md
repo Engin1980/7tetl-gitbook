@@ -22,6 +22,10 @@ Three basic types of steps will be introduced:
 * Step over (F8) – performs a step over the command; if the statement is a method call, it calls it, executes it, waits for it to complete and return a result, and continues to the next statement; otherwise executes the current command and continues to the next one;
 * Step out (Ctrl +F7) – performs a step "out" of the method; i.e., the rest of the current method is executed, the value from the method is returned (if the method returns a value), and it jumps out to the next statement of the parent method.
 
+{% hint style="warning" %}
+The action "step-over" something or "step-out-of" something is mentioned several times in this capter. It is importat to stress here that it does not mean, that the code is skipped. When stepped-over, the code gets calculated and evaluated like in the normal run, you just skip steps over such code.
+{% endhint %}
+
 They differ from each other in behavior. The following images show different stepping behavior. The statement framed in green is to be executed next. The arrows show where the execution will move when the desired step is taken.
 
 * Step-into is blue.
@@ -82,7 +86,7 @@ However, the situation is a bit more complicated. Because a programmer typically
 
 TODO Imgs/6-step-sett.jpg
 
-In general, two cases can occur:
+In general, following cases can occur:
 
 * The programmer does not have the source codes for the given library available - then method stepping is not performed, the method call is evaluated and the result is immediately returned, as if stepping "into" the methods was not performed (but the method itself is of course executed and evaluated).
 * The programmer has available the source codes for the given libraries, but they are marked as not to be stepped - then the system behaves the same as in the previous point.
@@ -92,11 +96,15 @@ TOOD Imgs/6-step-in-fun-3.jpg
 
 If a programmer steps into foreign code, you can see a slightly different tab color as the file is opened in the read-only mode and cannot be edited (however, you can add another breakpoints here). Diving into extraneous functions can be repeated.&#x20;
 
+{% hint style="info" %}
+If you would like to do a _step-into_ a code, which will normaly be skipped, use _**force-step-into**_ feature. This will bring you into the called method even if _step-into_ will skip such method. The option is available via menu Run -> Debugging actions -> Force step into.
+{% endhint %}
+
 If we step into the constructor of `SimpleDateFormat` class, another _step-into_ request will not invoke the step, but will raise a new highlighting:
 
 TODO Imgs/6-step-in-fun-4.jpg
 
-This means, that there are multiple statements at the line and Idea can step into two different locations:
+This means, that there are multiple statements at the line and Idea can step into two different locations. This feature is called _**smart-step-into**_. A programmer then may choose:
 
 * `this(...)` - means the _step-into_ will lead into another constructor, or
 * `Locale.getDefault(...)` - means the _step-into_ will enter the `getDefault(...)` function of `Locale` class.
@@ -144,23 +152,33 @@ The second basic step is the _step-out_, and in meaning it is actually the oppos
 
 From the point of view of a breakpoint, _step-out_ can be imagined as a step where a breakpoint is placed after the command calling the current function and the application is started in run mode - the remainder of the currently executed function is completed and the program stops at the breakpoint.
 
-The default keyboard shortcut in the Idea environment is Ctrl+F7.
+The default keyboard shortcut in the Idea environment is Ctrl+F8.
 
-The use is obvious from the definition - we use step-out if we get too deep when diving with step-in and want to move up the hierarchy in the sequence of calling functions.
+The use is obvious from the definition - we use _step-out_ if we get too deep when diving with _step-in_/breakpoints and want to move up the hierarchy in the sequence of calling functions.
 
-If we consider an example, see Figure 51 - Step-in after a step into a function, performing a step-out will jump back to the superior function.
+Calling _step-out_ in the `main()` method completes the calculation and terminates the program.
 
+A specific variant in Idea is step-_**out-of-code-block**_. It is useful in situations, when you are in the middle of iteration (`for`, `while`). By using _step-out_ you will get out of the method, but you only wants to get out of the iteration. The option is available via Run -> Debugging Actions -> Step Out of Code Block menu.
 
+TODO Imgs/6-step-out-of-code-block.jpg
 
-The convertDateToString() function itself is calculated and evaluated, and the result is returned to the line variable. It is worth noting that the line is not marked in green in its entirety! The step out of the function seems to "just terminate the execution of the function", but it has not yet assigned a value to the line variable (compare the behavior with the following step-over call). Calling Step-out in the main() method completes the calculation and terminates the program.
+## Step-Over
 
+The third basic type of step is _step-over_. This step is similar to the _step-into_, but the function steps over. Again, the code of the stepped-over function is calculated and evaluated. So if the programmer on a particular line has a function call:&#x20;
 
+* If he wants to enter the function, he chooses _step-into._&#x20;
+* If he does not want to enter the function and wants to continue stepping through the application at the same level he is currently at, he chooses _step-over_.
 
+{% hint style="info" %}
+If you make a _step-over_ over a function containing a breakpoint inside, you will get suspended if the breakpoint is hit. To _step-over_ and ingore all breapoints inside, use _force-step-over_. This feature will force the code to the next statement, ignored all possible breakpoints hit through the run. To invoke this feature, use menu Run -> Debugging actions -> Force step over.
+{% endhint %}
 
+## Run-to-cursor
 
+Another important feature is _run-to-cursor_. As the name suggest, the point is to place a cursor at a specific line and by invoking _run-to-cursor_, suspend the run at this statement. You can invoke this behavior using menu Run -> Debugging actions -> Run to cursor, or by a keyboard shortcut Alt+F9 by default.
 
+Note that if you place a cursor on a non-statement line, the run will not be suspended (again, see the correct breakpoint placement explanation).
 
-
-
-
-
+{% hint style="info" %}
+Another important feature here is _Reset Frame_. However, this one will be explained in the chapter related to the _Call stack_.
+{% endhint %}
