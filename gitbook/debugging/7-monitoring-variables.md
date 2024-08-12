@@ -50,6 +50,14 @@ However, this value is randomly assigned by a compiler on every run.
 
 Similarly for lists and arrays (or collections, in general), you can see the size of the list/array and expand the window to see the specific elements.
 
+This direct view is not only applicable on variables, but is also usable for more complex expressions. If you select a (syntactically and semantically meaningful) block of the code, you can evaluate its value by Alt+Click.
+
+![Direct expression evaluation](Imgs/7-watch-exp.jpg)
+
+{% hint style="info" %}
+This evaluation is done in two phases. Firstly, select the appropriate part of the code. Secondly, while holding `Alt` key, click on the selection to bring up the pop-up with the result.
+{% endhint %}
+
 **Variables Window**
 
 The other option is the **Variables** window, which display the values of all the variables known in the current context. If a new variable is delared, it is automatically displayed in this window. Similarly, if the variable is released, it disapears from the Variables window.
