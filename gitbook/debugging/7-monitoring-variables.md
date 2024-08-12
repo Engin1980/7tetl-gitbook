@@ -32,11 +32,11 @@ Directly, in IDEa, you can see the variable value in two ways:
 Again, the important thing here is the _current context_. You cannot see the value of the variable outside of it.
 {% endhint %}
 
-\--TODO imgs/7-view.jpg
+![Direct variable value view](imgs/7-view.jpg)
 
 In the previous image you can see that the value of variable `tmp` is 45 (the cursor is over the `tmp` name, therefore the popup appeared). Also, you can see on the right side of the command, that the `sum` variable value is also 45. You cannot see the current value of variable `i` as it is no longer valid in the current context.
 
-\--TODO imgs/7-view-2.jpg
+![Direct class value view](imgs/7-view-2.jpg)
 
 Similarly, for classes, you can see the info about the class type and an id of the instance. You can expand the info to see the instance content. As above, `c` is a variable containing an instance of `Counter` class with id `809`, this instance as one instance variable `id` with value `1`.
 
@@ -46,7 +46,7 @@ Aforementioned _id of the instance_ is a numerical value presented to provide yo
 However, this value is randomly assigned by a compiler on every run.
 {% endhint %}
 
-\--TODO imgs/7-view-3.jpg
+![Direct collection value view](imgs/7-view-3.jpg)
 
 Similarly for lists and arrays (or collections, in general), you can see the size of the list/array and expand the window to see the specific elements.
 
@@ -60,7 +60,7 @@ The window is available **only** in the Debug mode, via Debug -> Threads & Varia
 The Debug Window is automatically displayed in the debug mode. However, if closed, it can be acessed via the main menu: View -> Tool Windows -> Variables.
 {% endhint %}
 
-\--TODO imgs/7-vars-window.jpg
+![Variables window](imgs/7-vars-window.jpg)
 
 Again, you can see the values directly; for complex variable values (collections, classes) you can expand the list to see more details.
 
@@ -70,7 +70,7 @@ The **Watches** window gives you ability to check for the value of any **express
 
 In this window, you have to add and remove the required expressions - _watches_ - manually.
 
-\--TODO imgs/7-watch.jpg
+![Watches window](imgs/7-watch.jpg)
 
 In the image above, you can see two watches:
 
