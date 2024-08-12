@@ -126,6 +126,13 @@ General rules using breakpoints for transitions between debug-run and stepping s
 * there is no fatal error in the application terminating the running of the application (unsuccessful termination of the program);
 * does not encounter a breakpoint (switches to the stepping state).
 
+At the end, lets mention specific breakpoint locations:
+
+* You can place a single-hit breakpoint using Alt+Click. This breakpoint is removed once hit.
+* You can place a breakpoint at the method header to capture method entrance.
+* You can place a breakpoint at the class declaration line to suspend the code when default constructor is called.
+* You can place a breakpoint at the field (variable) of the class. Then, this breakpoint will suspend the code when the variable value is being updated.
+
 ## Using a breakpoint to monitor the application's progress
 
 Breakpoints are primarily used to stop an application from running at a certain point. The programmer can then monitor the variables at this point or browse the application continuously (it will be explained in the next chapters).
@@ -206,7 +213,7 @@ There is a _Condition_ text box in the breakpoint properties window. Here you ca
 
 ![Breakpoint with condition](Imgs/5-break-condition-set.jpg)
 
-Attention! This is a value evaluating conditions, so the rules apply&#x20;
+Attention! This is a value evaluating conditions, so the rules apply
 
 * The condition does not end with a semicolon.
 * Conditions can be chained arbitrarily (as if, for example, you would write the condition in the parentheses of the if statement, i.e. `(a > 7 && a < 10) || b = 3`.
@@ -240,7 +247,7 @@ Using the _More..._ button, you can expand full breakpoint settings. Then, you c
 
 ![Full breakpoint settings](Imgs/5-breakpoint-all.jpg)
 
-<table><thead><tr><th width="217">Property</th><th>Meaning</th></tr></thead><tbody><tr><td>Enabled</td><td>Enabled breakpoint can be hit. Disabled breakpoint preservers its configuration, but cannot be hit.</td></tr><tr><td>Suspend</td><td>Defines, how the suspendation behaves in multithreaded environment. All - means all application threads are suspended. Thread - means only the thread hitting the breakpoint is suspended. </td></tr><tr><td>Log ...</td><td>Prints a log (message) into the console window when the breakpoint is hit.</td></tr><tr><td>Log "Breakpoint hit" message</td><td>Logs a message only saying that the breakpoint was hit.</td></tr><tr><td>Log Stack trace</td><td>Logs a full stack trace when a breakpoint is hit. <em>Stack trace</em> is explained later in this course.</td></tr><tr><td>Evaluate and log</td><td>By setting a custom text in the text field, you can print a custom log message to a console. This message can also contain a value of variables or a result of a function calls.</td></tr><tr><td>Remove once hit</td><td>Breakpoint is removed once it is hit. Therefore, the breakpoint is always hit only once.</td></tr><tr><td>Pass count</td><td>You can specify a count, how many times a breakpoint is run through until its hit.</td></tr><tr><td>Instance/Class/Caller filters</td><td>You can specify, which instance/class/caller can invoke the breakpoint. More advanced technique.</td></tr></tbody></table>
+<table><thead><tr><th width="217">Property</th><th>Meaning</th></tr></thead><tbody><tr><td>Enabled</td><td>Enabled breakpoint can be hit. Disabled breakpoint preservers its configuration, but cannot be hit.</td></tr><tr><td>Suspend</td><td>Defines, how the suspendation behaves in multithreaded environment. All - means all application threads are suspended. Thread - means only the thread hitting the breakpoint is suspended.</td></tr><tr><td>Log ...</td><td>Prints a log (message) into the console window when the breakpoint is hit.</td></tr><tr><td>Log "Breakpoint hit" message</td><td>Logs a message only saying that the breakpoint was hit.</td></tr><tr><td>Log Stack trace</td><td>Logs a full stack trace when a breakpoint is hit. <em>Stack trace</em> is explained later in this course.</td></tr><tr><td>Evaluate and log</td><td>By setting a custom text in the text field, you can print a custom log message to a console. This message can also contain a value of variables or a result of a function calls.</td></tr><tr><td>Remove once hit</td><td>Breakpoint is removed once it is hit. Therefore, the breakpoint is always hit only once.</td></tr><tr><td>Pass count</td><td>You can specify a count, how many times a breakpoint is run through until its hit.</td></tr><tr><td>Instance/Class/Caller filters</td><td>You can specify, which instance/class/caller can invoke the breakpoint. More advanced technique.</td></tr></tbody></table>
 
 ## Exception as a breakpoint
 
@@ -278,7 +285,7 @@ At such a moment, the programmer can pause the program using the toolbar and the
 
 ![Interrupting calculation](Imgs/5-pause.jpg)
 
-When the program is suspended, the application is interrupted **wherever** the current calculation is performed and marks the next example to be executed. The difference from a breakpoint is that a breakpoint determines the exact line where the program should stop, while a pause stops the program wherever it is.&#x20;
+When the program is suspended, the application is interrupted **wherever** the current calculation is performed and marks the next example to be executed. The difference from a breakpoint is that a breakpoint determines the exact line where the program should stop, while a pause stops the program wherever it is.
 
 {% hint style="info" %}
 Note that the current executed code may not necessary be your code - you may end up in some third-party-library or in original Java class implemention. To get to your code, use the techniques described in the _Stepping_ chapter.
@@ -287,12 +294,3 @@ Note that the current executed code may not necessary be your code - you may end
 {% hint style="info" %}
 Sometimes it can happen that the calculation pauses somewhere "between" the commands being executed. Then you only need to press F7 once (see the chapter on stepping) and the program continues to the next command to be executed - it will be marked in green.
 {% endhint %}
-
-
-
-
-
-
-
-
-
