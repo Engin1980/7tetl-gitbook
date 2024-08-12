@@ -117,6 +117,7 @@ As a watch, you can add any expression, that can produce the value. It may be a 
 
 * `x`
 * `x + y * 6`&#x20;
+* `a > b || b > c && (d || !e)`&#x20;
 * `c.getAge()`
 * `new Person().getAge()`
 * `(5 + 4) + c.getAge()`
@@ -145,7 +146,7 @@ For the following example, you must have the Watches window visible at the all t
 
 Imagine the following code:
 
-```
+```java
 public class Program {
   private static int nextId = 0;
   private static int getNextId(){
@@ -188,7 +189,9 @@ The primary task of the function is to return the value. If the function changes
 
 So the conclusion: You should not use the side-effect functions in the watches. If so, be aware of the potentionally unexpected behavior and unappropriate results.
 
+## Final remarks
 
+The variables/watches states are not stored in the source codes, but in a separate project folder (`.idea`). If you transfer your project to another computer, without those data, all the settings will be lost.
 
 
 
