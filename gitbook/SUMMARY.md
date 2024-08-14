@@ -18,6 +18,7 @@
 * [6 Stepping](debugging/6-stepping.md)
 * [7 Monitoring Variables](debugging/7-monitoring-variables.md)
 * [8 Call Stack](debugging/8-call-stack.md)
+* [9 Other interesting tools](debugging/9-other-interesting-tools.md)
 
 ## Profiling
 
