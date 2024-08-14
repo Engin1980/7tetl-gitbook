@@ -18,7 +18,7 @@ THE IDEa IDE has a very nice and powerful visualization of chained functions and
 
 Imagine the following example:
 
-![Class diagram of the example](Imgs/9-class.png)
+![Class diagram of the example](Imgs/9-class.jpg)
 
 In this example, there is an invoice with invoice items. Every invoice item has a title, an amount, a price per item, and a total price per all items. Moreover, the invoice has a customer with a name, surname, and address.
 
