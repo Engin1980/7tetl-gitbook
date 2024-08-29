@@ -10,7 +10,7 @@
 
 ***
 
-* [4 Supporf of testing - exceptions, unit testing](4-supporf-of-testing-exceptions-unit-testing.md)
+* [4 Testing support - exceptions, unit testing](4-supporf-of-testing-exceptions-unit-testing.md)
 
 ## Debugging
 
