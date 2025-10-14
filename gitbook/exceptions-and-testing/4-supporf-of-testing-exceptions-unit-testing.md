@@ -5,7 +5,7 @@ description: >-
   presented - Unit testing.
 ---
 
-# 4 Supporf of testing - exceptions, unit testing
+# 4 Testing support - exceptions, unit testing
 
 ## Exceptions
 
@@ -17,7 +17,7 @@ The issue of exceptions in general (including exceptions in the Java language) i
 
 Errors may occur during certain types of operations. Operations are represented by methods, so there is a situation where the execution of the method fails and ends with an error. If the programmer anticipates an error (or in the Java language, the method informs him of the possible occurrence of the error himself), he can/is forced to treat the given method, or block of methods, with the technique of exception handling so that he is able to react to the given error and perform any corrective operations in the event of its occurrence occurrence.
 
-### Basic exception handling
+## Basic exception handling
 
 The basis of error handling is the use of the try-catch-finally technique. This technique is based on the existence of three blocks in the code:
 
@@ -148,7 +148,7 @@ Common data types are:
 
 In a very simplified way, the hierarchy of exceptions is shown in the figure.
 
-![Exceptions hierarchy - source: http://java5tutor.info/java/flowcontrol/exceptionover.html](Imgs/4-exceptions.jpg)
+![Exceptions hierarchy - source: http://java5tutor.info/java/flowcontrol/exceptionover.html](../Imgs/4-exceptions.jpg)
 
 To demonstrate, we need a more complex example - let's consider reading from a file:
 
@@ -265,15 +265,15 @@ eng.some.class
 
 This output tells us that the the class (`eng.some.class`) was not found (`ClassNotFoundException`).
 
-### Exception chaining
+## Exception chaining
 
 Another important point is exception chaining. The application is mostly built in layers, as shown in the following figure. Consider an example where the application stores data entered by the user in a database.
 
-![Application layers](Imgs/4-layers.jpg)
+![Application layers](../Imgs/4-layers.jpg)
 
 A higher layer always asks a lower layer to perform an action. Of course, if an error occurs on a lower layer, the error will flow to the higher layer in the same, gradual way. However, the exception does not have to remain the same - higher layer receiving the exception from a lower layer can augment the exception with some additional information specifying the error more closely, as shown in the next figure.
 
-![Application layers - chained exceptions](Imgs/4-layer-exceptions.jpg)
+![Application layers - chained exceptions](../Imgs/4-layer-exceptions.jpg)
 
 As you can see, the layer at each level has its own information that it can provide to the error:
 
@@ -324,9 +324,9 @@ Error when accessing table "User".
 SQL failed: invalid value for column "Password".
 ```
 
-### Monitoring the run through try-catch-finally
+## Monitoring the run through try-catch-finally
 
-When debugging exception catching, it is important to be aware of how the code runs in individual blocks. It is important to realize which blocks and which parts of them are executed, so that it is clear which statements will be executed, where to put any statements and which variables it is appropriate to monitor.&#x20;
+When debugging exception catching, it is important to be aware of how the code runs in individual blocks. It is important to realize which blocks and which parts of them are executed, so that it is clear which statements will be executed, where to put any statements and which variables it is appropriate to monitor.
 
 For a closer idea, the following code will be considered.
 
@@ -362,7 +362,7 @@ Therefore, in the case of a flawless passage:
 1. A statement before `try-catch-finally` ran.
 2. Both statements in the `try` block were executed.
 3. The `finally` block took place.
-4. The statement behind `try-catch-finally` ran.&#x20;
+4. The statement behind `try-catch-finally` ran.
 
 Subsequently, we modify the code - we insert our own invocation of the exception:
 
@@ -397,7 +397,7 @@ After try-catch-finally
 It is important to note that:
 
 * The `try` block is not executed to the end, but ends with a statement that raises an error.
-* The error is handled by the first `catch` block because the error is of type `Exception` and the block catches an error of type `Exception`.&#x20;
+* The error is handled by the first `catch` block because the error is of type `Exception` and the block catches an error of type `Exception`.
 
 So the code goes through the stages:
 
@@ -406,7 +406,7 @@ So the code goes through the stages:
 3. An error occurred in the `try`.
 4. The first `catch` block took place.
 5. The `finally` block took place.
-6. A block was run behind the `try-catch-finally`.&#x20;
+6. A block was run behind the `try-catch-finally`.
 
 If we slightly modify the code by changing the type of the error being raised:
 
@@ -445,138 +445,10 @@ It's important to note here that this time the error is handled by the second ca
 3. An error occurred in the `try`.
 4. The second `catch` block took place.
 5. The `finally` block took place.
-6. A block was run behind the `try-catch-finally`.&#x20;
+6. A block was run behind the `try-catch-finally`.
 
-This must be taken into account. Important conclusions:&#x20;
+This must be taken into account. Important conclusions:
 
 * In the event of an error, the `try` block may not run completely. Commands after the command that throws the error **are not executed**.
 * During debugging, it is necessary to estimate which block causes the error and handle it appropriately.
 * The finally `block` is always executed. (The `finally` block is executed even if there is a `return` statement in the code of the `catch` block exiting the current function.)
-
-### Keyword _assert_
-
-The `assert` keyword is one of the simple variants that can be used to replace the previous technique of monitoring continuous statements. Java allows you to write this keyword anywhere in the code and use it to test a condition that must be true in that part of the code. If the condition is not true, the execution of the applications stops and `AssertError` is raised.&#x20;
-
-The basic notations of the assert command are:
-
-```
-assert <condition>;
-assert <condition> : "Message";
-```
-
-The "condition" is an expression that returns true/false. If the value of the expression is false, the program execution is terminated and an error is raised - either a general text (in the case of using the first-line variant without its own error message), or a custom message text (in the case of using the second-line variant with its custom error message).&#x20;
-
-{% hint style="danger" %}
-The keyword `assert` works only if assertions are enabled in the Java Virtual Machine. See the paragraph below.
-{% endhint %}
-
-Attention! In order for assert statements to work, Java Virtual Machines must be notified to take them into account. This is done using the –ea switch in the virtual machine parameters. In the NetBeans environment, this can be done by calling up the context menu above the project and choosing Properties.
-
-#### Creating a Main configuration
-
-In IDEA, enabling 'assert' keyword may be a bit tricky because you need to be familiar a bit with the IDEA _run configurations_.&#x20;
-
-![IDEA Configuration selector](Imgs/4-idea-configuration-selector.jpg)
-
-In IDEA, when you start the program (via keyboard shortcut or using a green arrow/bug icon), the current so-called configuration is executed (see the image above). This configuration specifies an action, which should be executed. If a new project is created, there is a default 'Current File' configuration trying to find the `main()` method in the currently opened file and run it. To enable asserts, we need to create an explicit 'Run Main()' configuration, which will be altered later.&#x20;
-
-![IDEA Configuration generator](Imgs/4-idea-configuration-generator.jpg)
-
-To create an explicit run configuration, open the file with `main()` method and look for the green arrow to the left of it. By pressing the arrow icon, select "Run ...". When done, the application starts, and a new 'Main' configuration is created - see the change in the configuration window.
-
-#### Enabling asserts
-
-Once the "Main" configuration is available, open the dropdown menu and select "Edit configurations". Check for the "VM Options" text field in th eopened window. If the field is not visible, select "Modify options" and from the list, select "Add VM Options." Now, the field should be visible.
-
-![IDEA Configuration Detail - Add VM Option](Imgs/4-idea-configuration-add-vm.jpg)
-
-![IDEA Configuration Detail - Enabling asserts](Imgs/4-idea-configuration-enable-ea.jpg)
-
-In the "VM Options" text field enter the value "-ea". This tells Java Virtual Machine to process the asserts.
-
-{% hint style="info" %}
-If we want to ignore assert commands in the application, just delete the switch `-ea` again.
-{% endhint %}
-
-#### Usage of the _assert_ keyword
-
-The assert command means: if the condition is not met, stop the application and throw an error with the message. For the sake of interest - an error means the raising of an `AssertionError` exception, so the exception can be caught using the `try-catch-finally` block.&#x20;
-
-However, Assert statements are not meant to be used for common state checking and raising. As the asserting behavior is typically disabled in production, it is used mainly during development to check for unexpected behavior or situations. For example, you may check if the variable value is valid after some processing, or validate input parameters in the private methods.&#x20;
-
-{% hint style="warning" %}
-Don't use assert statements to validate values of public parameters. As asserts can be disabled, the checks will not be applied and you may miss an important validation during the execution.
-{% endhint %}
-
-Following example shows a method calculationg a sum of an array:
-
-```java
-private static double sumArray(double [] data){
-  double ret = 0;
-  
-  for (int i = 0; i < data.length; i++) {
-    ret += data[i];
-  }  
-  return ret;
-} 
-```
-
-This function takes an array of data on input, sums it, and returns the sum. However, it does not address at all what happens when a null parameter is passed. The programmer can assume that this will not happen in a "production" application deployed, but must check this at the time of testing, because someone else using this method might miss and pass such a parameter. So the programmer adds a simple condition to the function program:
-
-```java
-private static double sumArray(double [] data){
-  
-  assert (data != null) : "Parameter \"data\" is null.";
-  
-  double ret = 0;  
-  for (int i = 0; i < data.length; i++) {
-    ret += data[i];
-  }  
-  return ret;
-} 
-```
-
-If asserts are enabled and someone calls the method incorrectly:
-
-```java
-double[] data = null;
-
-double sum = sumArray(data);
-System.out.println("Součet je " + sum); 
-```
-
-The output will be:
-
-```
-Exception in thread "main" java.lang.AssertionError: Parameter "data" is null.
-	at Main.sumArray(Main.java:14)
-	at Main.main(Main.java:9)
-
-Process finished with exit code 1
-```
-
-So the basic principle is simple.&#x20;
-
-Similarly, we can check whether the function works correctly. We create an array with data, run the adding function and compare the result at the end of the run using an assertion.
-
-```java
-double[] data = new double[]{1.3, 1.7, -1.5, 2};
-double sum = sumArray(data);
-
-assert  
-        sum == 3.5 : 
-        "Expected value is 3.5, function result is " + sum;
-```
-
-Using this feature, it is easy to create a simple test validating the result.
-
-
-
-
-
-
-
-
-
-
-
