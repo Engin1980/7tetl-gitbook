@@ -148,7 +148,7 @@ Common data types are:
 
 In a very simplified way, the hierarchy of exceptions is shown in the figure.
 
-![Exceptions hierarchy - source: http://java5tutor.info/java/flowcontrol/exceptionover.html](../Imgs/4-exceptions.jpg)
+![Exceptions hierarchy - source: http://java5tutor.info/java/flowcontrol/exceptionover.html](Imgs/4-exceptions.jpg)
 
 To demonstrate, we need a more complex example - let's consider reading from a file:
 
@@ -269,11 +269,11 @@ This output tells us that the the class (`eng.some.class`) was not found (`Class
 
 Another important point is exception chaining. The application is mostly built in layers, as shown in the following figure. Consider an example where the application stores data entered by the user in a database.
 
-![Application layers](../Imgs/4-layers.jpg)
+![Application layers](Imgs/4-layers.jpg)
 
 A higher layer always asks a lower layer to perform an action. Of course, if an error occurs on a lower layer, the error will flow to the higher layer in the same, gradual way. However, the exception does not have to remain the same - higher layer receiving the exception from a lower layer can augment the exception with some additional information specifying the error more closely, as shown in the next figure.
 
-![Application layers - chained exceptions](../Imgs/4-layer-exceptions.jpg)
+![Application layers - chained exceptions](Imgs/4-layer-exceptions.jpg)
 
 As you can see, the layer at each level has its own information that it can provide to the error:
 
