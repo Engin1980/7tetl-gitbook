@@ -5,9 +5,9 @@ description: >-
   presented - Unit testing.
 ---
 
-# 4 Testing support - exceptions, unit testing
+# 4 Exceptions
 
-## Exceptions
+## What is the Exception
 
 Exceptions are one of the basic error representation mechanisms in typical object-oriented programming languages. They are raised during code evaluation as a reaction to an unexpected or erroneous state. They can be handled by a programmer. If not, they cause an application crash.
 
