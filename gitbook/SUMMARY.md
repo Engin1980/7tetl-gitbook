@@ -13,8 +13,8 @@
 ## Exceptions & Testing
 
 * [4 Testing support - exceptions, unit testing](4-supporf-of-testing-exceptions-unit-testing.md)
-* [4.1 assert Keyword](exceptions-and-testing/4.1-assert-keyword.md)
-* [4.2 Unit Testing - JUnit](exceptions-and-testing/4.2-unit-testing-junit.md)
+* [4-a assert Keyword](exceptions-and-testing/4-a-assert-keyword.md)
+* [4-b Unit Testing - JUnit](exceptions-and-testing/4-b-unit-testing-junit.md)
 
 ## Debugging
 

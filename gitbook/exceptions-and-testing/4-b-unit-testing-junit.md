@@ -1,4 +1,4 @@
-# 4.2 Unit Testing - JUnit
+# 4-b Unit Testing - JUnit
 
 Source code for this chapter is available at [https://github.com/Engin1980/7tetl-unit-testing-tutorial](https://github.com/Engin1980/7tetl-unit-testing-tutorial).
 
@@ -163,7 +163,7 @@ You can now run the test configuration to see the result.
 When writing tests, we should not focus on just a single combination of inputs. Instead, the goal is to cover as much of the **input domain** as possible — that is, all meaningful types of values that a method might receive. This includes typical, boundary, and exceptional cases. For example, when testing a division method, we should check not only regular values but also zero, negative numbers, and very large or very small values. Covering the full input domain increases our confidence that the method behaves correctly in all situations, not just under ideal conditions. To do so, we can use several techniques.
 
 {% hint style="info" %}
-Note that approaches mentioned below are the simple ones and used only for initial test set up. More advanced techniques will be explained later, in [#more-complex-techniques](4.2-unit-testing-junit.md#more-complex-techniques "mention") section.
+Note that approaches mentioned below are the simple ones and used only for initial test set up. More advanced techniques will be explained later, in [#more-complex-techniques](4-b-unit-testing-junit.md#more-complex-techniques "mention") section.
 {% endhint %}
 
 When you want to test a method with **different combinations of input values**, you have two main approaches:
