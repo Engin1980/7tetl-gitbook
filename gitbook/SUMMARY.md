@@ -7,6 +7,8 @@
 
 * [2 Continuous Code Listings](listings/2-continuous-code-listings.md)
 * [3 Logging](listings/3-logging.md)
+* [3-a Logging with TinyLog](listings/3-a-logging-with-tinylog.md)
+* [3-b Logging with Log4j2](listings/3-b-logging-with-log4j2.md)
 
 ## Exceptions & Testing
 
