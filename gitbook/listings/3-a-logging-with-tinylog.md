@@ -90,7 +90,7 @@ You can control TinyLog using a simple text file called `tinylog.properties`. Pu
 
 Example configuration:
 
-```
+```properties
 # Set the minimum level of messages to show
 level = info
 
@@ -101,7 +101,7 @@ writer.format = {level}: {message}
 
 You can change `writer` to write to a file instead:
 
-```
+```properties
 writer = file
 writer.file = logs/app.log
 writer.format = {date} [{level}] {message}
@@ -120,6 +120,7 @@ Here are the most common placeholders you can use in `writer.format`:
 | `{date}`      | Current date and time                 | 2025-10-15 14:32:01            |
 | `{level}`     | Log level (INFO, WARN, etc.)          | INFO                           |
 | `{thread}`    | Thread name                           | main                           |
+| `{tag}`       | Name of the custom logger/tag         | MyApp                          |
 | `{class}`     | Class name                            | com.example.Main               |
 | `{package}`   | Package name                          | com.example                    |
 | `{method}`    | Method name                           | main                           |
@@ -141,7 +142,36 @@ Output example:
 
 You can combine any placeholders you like to create your own log format.
 
-### 6. Study Sources for TinyLog
+### 6. Creating and Using Custom Loggers
+
+In TinyLog, you can create custom loggers by using **tags**. Tags act as logger names.
+
+```java
+import org.tinylog.Logger;
+
+public class CustomLoggerExample {
+    public static void main(String[] args) {
+        // Default logger
+        Logger.info("This is a default log message.");
+
+        // Custom logger with tag "MyApp"
+        Logger.tag("MyApp").info("This is a custom logger message.");
+
+        // Another custom logger with tag "Database"
+        Logger.tag("Database").warn("Database connection slow.");
+    }
+}
+```
+
+Output:
+
+```
+INFO: This is a default log message.
+INFO [MyApp]: This is a custom logger message.
+WARN [Database]: Database connection slow.
+```
+
+### 7. Study Sources for TinyLog
 
 Here are useful resources to learn more about TinyLog:
 
