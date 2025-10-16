@@ -109,6 +109,32 @@ writer.format = {date} [{level}] {message}
 
 Now your logs will be saved in `logs/app.log`.
 
+If you want to log to multiple targets, you can define multiple writers:
+
+```properties
+# Console writer
+writer1 = console
+writer1.level = info
+writer1.format = {date} [{level}] {message}
+
+# File writer
+writer2 = file
+writer2.level = debug
+writer2.file = logs/app.log
+writer2.format = {date} [{level}] {thread}: {message}
+writer2.append = true
+```
+
+Here:
+
+* `writer1` → logs to the console (standard output).
+* `writer2` → logs to a file (`logs/app.log`) and appends to it.
+* Each writer can have its own `level`, `format`, etc.
+
+{% hint style="warning" %}
+Note that _TinyLog_ automatically logs to **all configured writers.**
+{% endhint %}
+
 ### 5. Understanding Formatters
 
 TinyLog allows you to control how each log message looks using **formatters**. Formatters use placeholders wrapped in `{}` to represent information.
