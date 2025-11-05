@@ -699,6 +699,35 @@ Here you can see that:
 * the test was executed 1000 times;
 * the checks (`Assume.that(...)`) were valid for 902 cases;
 
+Alternatively, you can specify the parameter behavior using the annotations, like:
+
+```java
+package cz.osu.prf.kip.model;
+
+import net.jqwik.api.Assume;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import org.junit.jupiter.api.Assertions;
+
+public class AppUserTest {
+
+  @Property
+  public void ctorInitializingCorrectly(
+      @ForAll @AlphaChars @StringLength(min = 1, max = 30) String userName, 
+      @ForAll @AlphaChars @StringLength(min = 8, max = 30) String password, 
+      // @ForAll @IntRange(min = 0, max = 120) int age) - an example for int
+      @ForAll boolean isAdmin) {
+    // Assume.that(userName != null && !userName.trim().isEmpty());
+    // Assume.that(password != null);
+    // ...
+  }
+}
+```
+
+However, for more detailed explanation, see documentation.
+
+{% embed url="https://jqwik.net/docs/current/user-guide.html" %}
+
 ### Mocking — Mockito
 
 **Mocking** in unit testing is a technique used to simulate the behavior of real objects or components that a piece of code depends on. Instead of using the actual implementation — which might be slow, unpredictable, or have side effects like database access or network calls — a _mock object_ is created to mimic that dependency in a controlled way. This allows developers to isolate the unit under test and verify its behavior independently of external systems.
