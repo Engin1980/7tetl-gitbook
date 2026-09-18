@@ -321,7 +321,7 @@ public class StudentCollection {
 } 
 ```
 
-Tomáš found the methods and deduces their behavior:
+Tomas found the methods and deduces their behavior:
 
 * Add  – to add a new element/student
 * Get – to retrieve a student from a recordset by numeric index
@@ -428,7 +428,7 @@ Jan Quick
 
 Here the application did not run correctly. Only one student "Jan Quick" should have entered. So there is a mistake somewhere. In general, the error can occur in two places:
 
-1. In the case of inserting a student, i.e. in the students.add(s) command. This is probably the first idea that the implementation was not done correctly and Zdeněk is not validating the addition of a student with the same name.
+1. In the case of inserting a student, i.e. in the students.add(s) command. This is probably the first idea that the implementation was not done correctly and Zdenek is not validating the addition of a student with the same name.
 2. In the case of a student listing, i.e. in the for cycle – theoretically, there can also be the case that the student was not added to the collection, but the collection for some reason lists the last student more than once. This case is very unlikely at first glance, but it needs to be verified, otherwise we could unnecessarily (and especially for a long time) look for an error in a place where there is no error.
 
 Determining the type of error is very simple - just check how many elements there are in the collection after inserting the third student. If there are two elements, the error is in case 2), i.e. the list of elements. However, if there are 3 elements, there is an error of 1), that is, the third student entered the collection incorrectly.
@@ -547,7 +547,7 @@ public boolean add(Student student) {
 } 
 ```
 
-It is important to note that now Tomáš already numbers the continuous statements in addition - SC.add 5, etc. So, he can distinguish the individual statements from each other. It can then see where the code went for each function call:
+It is important to note that now Tomas already numbers the continuous statements in addition - SC.add 5, etc. So, he can distinguish the individual statements from each other. It can then see where the code went for each function call:
 
 1. The first listing should always be made for each added object;
 2. The second statement is executed only if the function `containsStudent()` returns `true` and the program jumps to the conditional if block. It is important that this statement be the first one immediately after the opening parenthesis of the block so that no further change to the `isValid` variable can occur before that.
@@ -555,38 +555,38 @@ It is important to note that now Tomáš already numbers the continuous statemen
 4. The fourth statement should always be performed and is only a check for the value of the `isValid` variable.
 5. The fifth listing is performed only if the element is physically added to the collection, because it is placed inside the `if (isValid) ...` condition block.
 
-After the subsequent launch, Tomáš gets the results:
+After the subsequent launch, Tomas gets the results:
 
-<pre><code>	### - SC.add 1 (Nový) - isValid: true
-<strong>	### - SC.add 4 (Nový) - isValid: true
-</strong>	### - SC.add 5 (Nový) - isValid: true
-	### - SC.add 1 (Rychlý) - isValid: true
-	### - SC.add 4 (Rychlý) - isValid: true
-	### - SC.add 5 (Rychlý) - isValid: true
-	### - SC.add 1 (Rychlý) - isValid: true
-	### - SC.add 2 (Rychlý) - isValid: true
-	### - SC.add 3 (Rychlý) - isValid: true
-	### - SC.add 4 (Rychlý) - isValid: true
-	### - SC.add 5 (Rychlý) - isValid: true
+<pre><code>	### - SC.add 1 (White) - isValid: true
+<strong>	### - SC.add 4 (White) - isValid: true
+</strong>	### - SC.add 5 (White) - isValid: true
+	### - SC.add 1 (Quick) - isValid: true
+	### - SC.add 4 (Quick) - isValid: true
+	### - SC.add 5 (Quick) - isValid: true
+	### - SC.add 1 (Quick) - isValid: true
+	### - SC.add 2 (Quick) - isValid: true
+	### - SC.add 3 (Quick) - isValid: true
+	### - SC.add 4 (Quick) - isValid: true
+	### - SC.add 5 (Quick) - isValid: true
 	### number of elements: 3
 
 </code></pre>
 
 So what did Tomas discover?&#x20;
 
-Statements 1, 4 and 5 are called for the student "Nový", so it is correctly evaluated that the student is not yet in the collection and the block with the condition and statements 2 and 3 are skipped. Listing 5 says that the student is physically added to the collection.
+Statements 1, 4 and 5 are called for the student "White", so it is correctly evaluated that the student is not yet in the collection and the block with the condition and statements 2 and 3 are skipped. Listing 5 says that the student is physically added to the collection.
 
-For the "Rychlý" student, statements 1, 4 and 5 are called for the first time, and thus again it is correctly evaluated that the student is not yet in the collection and the block with condition 2 and 3 is skipped. Listing 5 says that the student is physically added to the collection.
+For the "Quick" student, statements 1, 4 and 5 are called for the first time, and thus again it is correctly evaluated that the student is not yet in the collection and the block with condition 2 and 3 is skipped. Listing 5 says that the student is physically added to the collection.
 
-For the "Rychlý" student, statement 1 is called a second time, but then statements 2 and 3 are also called, so the `containsStudent(student)` function **worked correctly** and correctly detected that a student with the same name is already in the collection.&#x20;
+For the "Quick" student, statement 1 is called a second time, but then statements 2 and 3 are also called, so the `containsStudent(student)` function **worked correctly** and correctly detected that a student with the same name is already in the collection.&#x20;
 
 {% hint style="warning" %}
-This is very important to note - again, Tomáš has found that the function works correctly without having to study the complex code inside the function.
+This is very important to note - again, Tomas has found that the function works correctly without having to study the complex code inside the function.
 {% endhint %}
 
 However, Listing 3 also reveals that the value of the `isValid` variable is not changing, which is apparently not a bad thing, since Listings 4 and 5 are executed next - and Listing 5 indicates that the object has been physically added to the collection - which is not correct.
 
-Next, Tomáš must focus on what is happening inside the block between statements 2 and 3 and why the `isValid` variable with the value `false` does not come from here. If there were another sequence of statements in that part of the code, it would have to analogically parse them in the same way. Fortunately, Tomáš finds only one statement here that is clearly wrong, and Tomáš corrects it to:
+Next, Tomas must focus on what is happening inside the block between statements 2 and 3 and why the `isValid` variable with the value `false` does not come from here. If there were another sequence of statements in that part of the code, it would have to analogically parse them in the same way. Fortunately, Tomas finds only one statement here that is clearly wrong, and Tomas corrects it to:
 
 ```java
 if (containsStudent(student)) {
@@ -600,33 +600,33 @@ if (containsStudent(student)) {
 } 
 ```
 
-Tomáš runs the corrected version again and gets the output (note the lines 7 - 10):
+Tomas runs the corrected version again and gets the output (note the lines 7 - 10):
 
 {% code lineNumbers="true" %}
 ```
-	### - SC.add 1 (Nový) - isValid: true
-	### - SC.add 4 (Nový) - isValid: true
-	### - SC.add 5 (Nový) - isValid: true
-	### - SC.add 1 (Rychlý) - isValid: true
-	### - SC.add 4 (Rychlý) - isValid: true
-	### - SC.add 5 (Rychlý) - isValid: true
-	### - SC.add 1 (Rychlý) - isValid: true
-	### - SC.add 2 (Rychlý) - isValid: true
-	### - SC.add 3 (Rychlý) - isValid: false
-	### - SC.add 4 (Rychlý) - isValid: false
+	### - SC.add 1 (White) - isValid: true
+	### - SC.add 4 (White) - isValid: true
+	### - SC.add 5 (White) - isValid: true
+	### - SC.add 1 (Quick) - isValid: true
+	### - SC.add 4 (Quick) - isValid: true
+	### - SC.add 5 (Quick) - isValid: true
+	### - SC.add 1 (Quick) - isValid: true
+	### - SC.add 2 (Quick) - isValid: true
+	### - SC.add 3 (Quick) - isValid: false
+	### - SC.add 4 (Quick) - isValid: false
 	### počet prvků: 2
-Michal Nový
-Jan Rychlý
+Michal White
+Jan Quick
 ```
 {% endcode %}
 
-Tomáš can now check that blocks 1, 2, 3 and 4 are executed for the second student being added "Fast", but block 5 is not executed, the element is not physically added, and the application (respectively this checked part) now works correctly.&#x20;
+Tomas can now check that blocks 1, 2, 3 and 4 are executed for the second student being added "Fast", but block 5 is not executed, the element is not physically added, and the application (respectively this checked part) now works correctly.&#x20;
 
-Now, Tomáš would subsequently test the behavior of `remove()` and other public methods in the same way.
+Now, Tomas would subsequently test the behavior of `remove()` and other public methods in the same way.
 
 ## Example II
 
-The second part of the task given by Tomáš Zdenek was for the student to have a list of grades:
+The second part of the task given by Tomas Zdenek was for the student to have a list of grades:
 
 * Marks can be entered 1\*, 1, 1-, 2, 2-, 3, 3-, 4, 4-, 5
 * Students can add, edit and remove grades.&#x20;
@@ -640,9 +640,9 @@ Based on this list of marks, the average is to be calculated as follows:
 For this example, we suppose czech grading system, in a range 1\*, 1, 1-, 2, 2-, 3, 3-, 4, 4-, 5, where 1\* has meaning "excelent", the minus sign represents worsening.
 {% endhint %}
 
-Tomáš examines Zdenek's solution and finds two matching classes.
+Tomas examines Zdenek's solution and finds two matching classes.
 
-The first class is `Mark` in the `Mark.java` file. Tomáš will again focus on public members.
+The first class is `Mark` in the `Mark.java` file. Tomas will again focus on public members.
 
 ```java
 /**
@@ -681,7 +681,7 @@ public enum Mark {
 
 ```
 
-In the implementation, Tomáš finds an enumeration type (enum) with representations for individual grades, where the "h" postfix means an asterisk and the "m" postfix means a minus, i.e. \_1h is the grade "1\*", \_2m is the grade "2-". He also notices that Zdeněk has (finally) added some, at least basic comments, so he quickly discovers that there are two other methods in the type - `getValue()` representing the mark as a number of type double (so that the values ​​can be added/divided and the arithmetic mean can be calculated ) and the `getDisplayValue()` function, which is used to convert the mark into the format that people see and perceive (1\*, 2-, etc.).
+In the implementation, Tomas finds an enumeration type (enum) with representations for individual grades, where the "h" postfix means an asterisk and the "m" postfix means a minus, i.e. \_1h is the grade "1\*", \_2m is the grade "2-". He also notices that Zdenek has (finally) added some, at least basic comments, so he quickly discovers that there are two other methods in the type - `getValue()` representing the mark as a number of type double (so that the values ​​can be added/divided and the arithmetic mean can be calculated ) and the `getDisplayValue()` function, which is used to convert the mark into the format that people see and perceive (1\*, 2-, etc.).
 
 {% hint style="info" %}
 _An enumeration type_ is a type whose values ​​must can be only taken from a preselected set - an enumeration. Grades are a typical example, as the programmer-user is only wanted to use the grades 1\*, 1, 1-, … 4, 4-, 5, but no others (for example, 2+ is not allowed). The enum type is used exactly in these cases when we want to limit the choice options.
@@ -700,7 +700,7 @@ public class MarkCollection extends java.util.ArrayList<Mark> {
 } 
 ```
 
-This class contains only one method – `getTrimmedMean()`, which, according to the name, is used to calculate the trimmed mean according to the input. However, it does not contain any other methods! Looking at the class declaration, Tomáš discovers that the class inherits from the `java.util.ArrayList` class, i.e. inherits from a class that itself can be and behave as a dynamic array for grades.
+This class contains only one method – `getTrimmedMean()`, which, according to the name, is used to calculate the trimmed mean according to the input. However, it does not contain any other methods! Looking at the class declaration, Tomas discovers that the class inherits from the `java.util.ArrayList` class, i.e. inherits from a class that itself can be and behave as a dynamic array for grades.
 
 {% hint style="info" %}
 The `ArrayList` class belongs to the Java Collection Framework. If you are not familiar, we will briefly explain that it is an implementation of a dynamic field with methods such as `add()`, `remove()`, `get()` and others, which can add, remove and retrieve an element according to the index. Inheritance of course says that the descendant (in our case the `MarkCollection` class) inherits all these methods from its ancestor `ArrayList`.
@@ -708,10 +708,10 @@ The `ArrayList` class belongs to the Java Collection Framework. If you are not f
 
 It's time to verify the implementation.
 
-First, Tomáš tries to assign a few grades to the student and write them down.
+First, Tomas tries to assign a few grades to the student and write them down.
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 
 // add two grades
 s.getMarks().add(Mark._1h);
@@ -742,7 +742,7 @@ $$
 $$
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 
 // add marks
 s.getMarks().add(Mark._1h);
@@ -760,7 +760,7 @@ double mean = s.getMarks().getTrimmedMean();
 System.out.println("Mean = " + mean); 
 ```
 
-However, after running, Tomáš gets the output:
+However, after running, Tomas gets the output:
 
 ```
 1*, 4, 
@@ -770,7 +770,7 @@ Exception in thread "main" java.lang.ClassCastException: [Ljava.lang.Object; can
 Java Result: 1
 ```
 
-So the program caused a runtime error. From the statement above, it can be seen that the error occurred in the function `Isworking.MarkCollection.getTrimmedMean()`. For further processing, Tomáš must therefore focus on this method, which looks long and complex, so he will not go through it in detail:
+So the program caused a runtime error. From the statement above, it can be seen that the error occurred in the function `Isworking.MarkCollection.getTrimmedMean()`. For further processing, Tomas must therefore focus on this method, which looks long and complex, so he will not go through it in detail:
 
 ```java
 public double getTrimmedMean (){
@@ -804,7 +804,7 @@ ret = calculateMean (data);
 . . .
 ```
 
-Fortunately, this passage is quite readable - from a set of `trimmedVals` values, the `toArray()` function is used to obtain the o object, which is then hard-coded into a double array with the next command `double [] data = (double[]) o;`. However, this cast will fail because, as the exception says, the object cannot be cast to type `double[]`. Tomáš looks further and finds that `trimmedVals` is of type `java.util.List`, while data is of type `double[]`.
+Fortunately, this passage is quite readable - from a set of `trimmedVals` values, the `toArray()` function is used to obtain the o object, which is then hard-coded into a double array with the next command `double [] data = (double[]) o;`. However, this cast will fail because, as the exception says, the object cannot be cast to type `double[]`. Tomas looks further and finds that `trimmedVals` is of type `java.util.List`, while data is of type `double[]`.
 
 The solution to this problem can go in several ways - Tomas decides that instead of complicatedly tracking what the `toArray()` function does and how to modify it to work together with `double[]`, he simply writes his own function that does the conversion:
 
@@ -858,7 +858,7 @@ The calculated average corresponds to the correct values.
 So he tries a more complex variant, in which he incorporates all the marks several times, i.e. the sequence {1\*; 1; 1-; 2; 2-; 3; 3-; 4; 4-; 5; 5; 4-; 4; 3-; 3; 2-; 2; 1-; 1; 1\*}.
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 
 // add multiple grades
 s.getMarks().add(Mark._1h);
@@ -932,7 +932,7 @@ So he fixes the value to `_3m(3.5),` and run the code again:
 Mean = 3.5
 ```
 
-Now Tomáš can return to the original example. But first he has to find out what result to expect for the original set {1\*; 1; 1-; 2; 2-; 3; 3-; 4; 4-; 5; 5; 4-; 4; 3-; 3; 2-; 2; 1-; 1; 1\*}.&#x20;
+Now Tomas can return to the original example. But first he has to find out what result to expect for the original set {1\*; 1; 1-; 2; 2-; 3; 3-; 4; 4-; 5; 5; 4-; 4; 3-; 3; 2-; 2; 1-; 1; 1\*}.&#x20;
 
 It has 20 marks in entry. 20% of 20 marks is 4, so he will remove 4 worst and 4 best marks. First, they sort the array into the sequence {1\*; 1\*; 1; 1; 1-; 1-; 2; 2; 2-; 2-; 3; 3; 3-; 3-; 4; 4; 4-; 4-; 5; 5}. After removing the 4 best and 4 worst marks, he gets {1-; 1-; 2; 2; 2-; 2-; 3; 3; 3-; 3-; 4; 4}. The average of these remaining 12 marks is:
 
@@ -947,7 +947,7 @@ The output is:
 Mean = 2.775
 ```
 
-So this is not good either. And Tomáš has to return to the `getTrimmedMean()` function again. It knows that the average is calculated from `trimmedVals` values ​​at the bottom of the function, so it tries to print this set.
+So this is not good either. And Tomas has to return to the `getTrimmedMean()` function again. It knows that the average is calculated from `trimmedVals` values ​​at the bottom of the function, so it tries to print this set.
 
 ```java
 public double getTrimmedMean (){
@@ -1045,7 +1045,7 @@ private int getOutStepForCount(int length, double trim) {
 } 
 ```
 
-In the function, a trimmed value is "somehow" obtained in the `out`variable by dividing the number of elements by the % of selected elements. Here Tomáš checks how this mathematical operation behaves, because it is apparently critical in the calculation of the number of trimmed elements:
+In the function, a trimmed value is "somehow" obtained in the `out`variable by dividing the number of elements by the % of selected elements. Here Tomas checks how this mathematical operation behaves, because it is apparently critical in the calculation of the number of trimmed elements:
 
 ```java
 private int getOutStepForCount(int length, double trim) {
@@ -1068,7 +1068,7 @@ The listing is not correct, the expected 4 elements should come out for clipping
 ### len: 20 // trim: 0.2 // out: 100
 ```
 
-Now, Tomáš has to look what the function actually does, and he discovers that the required operation should be multiplication (and not division) between the length and trim elements. Will try quick replace:
+Now, Tomas has to look what the function actually does, and he discovers that the required operation should be multiplication (and not division) between the length and trim elements. Will try quick replace:
 
 ```java
 int out = (int) Math.ceil(length * trim); 
@@ -1097,7 +1097,7 @@ int out = (int) Math.ceil(length * trim);
 	### 2.5
 ```
 
-He realizes that the function trims the first 4 and the last 4 from the source data - however, for correct trimming, Tomáš had to sort the array and the array is certainly not sorted in the program (can be verified again by quickly listing the items of the `vals` variable. So Tomáš can find on the Internet how to sorts the `List` array and applies the found solution before trimming the values:
+He realizes that the function trims the first 4 and the last 4 from the source data - however, for correct trimming, Tomas had to sort the array and the array is certainly not sorted in the program (can be verified again by quickly listing the items of the `vals` variable. So Tomas can find on the Internet how to sorts the `List` array and applies the found solution before trimming the values:
 
 ```java
 public double getTrimmedMean (){
@@ -1149,7 +1149,7 @@ The program runs and receives the correct dump:
 Průměr = 2.75
 ```
 
-It is still advisable to check the behavior for a small number of stamps (if clipping is not performed). So Tomáš adds only 2 grades to the program and asks for their average:
+It is still advisable to check the behavior for a small number of stamps (if clipping is not performed). So Tomas adds only 2 grades to the program and asks for their average:
 
 ```java
 s.getMarks().add(Mark._2m);
