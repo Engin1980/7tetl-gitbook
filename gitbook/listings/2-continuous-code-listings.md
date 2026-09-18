@@ -6,7 +6,7 @@ description: >-
 
 # 2 Continuous Code Listings
 
-he technique of continuous listings is one of the simplest techniques in which a programmer can follow the flow of a program and the values ​​of variables. It is an approach that requires a minimum of knowledge of the programming language under investigation, does not make great demands on the development environment, and is therefore particularly suitable in cases of:&#x20;
+The technique of continuous listings is one of the simplest techniques in which a programmer can follow the flow of a program and the values ​​of variables. It is an approach that requires a minimum of knowledge of the programming language under investigation, does not make great demands on the development environment, and is therefore particularly suitable in cases of:&#x20;
 
 * When the programmer follows foreign source code in which he does not normally work;
 * When the programmer examines the source code in a programming language that he does not directly know (but we assume that it is a language similar in terms of syntax and used paradigms (for example, in the Java - C# - C++ - ... group);
@@ -38,7 +38,7 @@ The mentioned advantage of this procedure is that the programmer can only work i
 In the Java language environment, we can suffice with the command definition:
 
 ```java
-System.out.println("Výpis"); 
+System.out.println("Listing"); 
 ```
 
 To write to a file, you just need to find a page on the Internet that describes writing to a file as simply as possible, or add a function somewhere that we will call and that will solve the whole problem for us:
@@ -61,7 +61,7 @@ private static void logToFile(String text) {
 We will take this (or any other similar) code from the website and then just test whether it works and can be used:
 
 ```java
-logToFile("výpis"); 
+logToFile("Listing"); 
 ```
 
 In conclusion, it is important to repeat a very important assumption - **the tested code must not contain syntax errors**. The entire procedure is based on the principle that the application is repeatedly launched and the programmer monitors the changes made. If the application contains syntax errors, it cannot be run and the listings cannot be observed in action. It is often better to comment out a certain part of the code and ignore it so that the application can run.
@@ -137,7 +137,7 @@ From the output it can be noticed that the run will not run correctly as a total
 
 In the second case, i.e. when monitoring the values ​​of variables, the monitoring statements are placed arbitrarily, but again in particular: • After assignment to a variable – to find out the new value of the variable; • To the end of the corresponding block – to find out whether the value of the variable has not changed until the end of the block; • Anywhere in the code – typically when looking for an unexpected variable change. Consider a simple class representing a person.
 
-```
+```java
 class Person {
   ...
   public Person(String name, int birthYear) { . . . }
@@ -249,16 +249,14 @@ class Person {
 
 ## Example I
 
-TODO change names
-
-Programmer Tomáš assigned programmer Zdenek a task where he needs to create classes implementing the following behavior:
+Programmer Tomas assigned programmer Zdenek a task where he needs to create classes implementing the following behavior:
 
 * There is a class representing the student. A student has a first name, last name, and a set (ie array, collection) of grades.
 * There is a class representing a set (ie array, collection) of students. It must be fulfilled, that there are simple methods for inserting another student into this set, as well as getting a student by index and removing a student. The rule applies to adding a student (in both cases, the addition is simply skipped):
   * It is not possible to add a student who has an empty or null name and surname at the same time.
   * Cannot add a student who has the same first and last name as a student in the set already added.&#x20;
 
-After some time, the programmer Zdeněk hands Tomáš the files with the classes that everything is created and working. Tomáš decides to check the submitted implementation, but he does not want to check everything after Zdenek (i.e. go through and learn his source code completely), he just wants to get a quick overview and test whether the specified behavior conditions work.&#x20;
+After some time, the programmer Zdenek hands Tomas the files with the classes that everything is created and working. Tomas decides to check the submitted implementation, but he does not want to check everything after Zdenek (i.e. go through and learn his source code completely), he just wants to get a quick overview and test whether the specified behavior conditions work.&#x20;
 
 The submitted solution contains 4 files:
 
@@ -267,9 +265,9 @@ The submitted solution contains 4 files:
 * Student.java&#x20;
 * StudentCollection.java
 
-Compiling with an empty `main()` method, Tomáš finds that the source code contains no syntax errors, which is important because, as mentioned, you cannot use continuous statement testing with syntax errors.&#x20;
+Compiling with an empty `main()` method, Tomas finds that the source code contains no syntax errors, which is important because, as mentioned, you cannot use continuous statement testing with syntax errors.&#x20;
 
-For now, Tomáš will focus only on the area of ​​students. In class, the student will focus on important areas. The important areas for him are the **public** members of the class because those are the ones he will be able to work with from his source code. He will not deal with private members, because he cannot and will not use them.
+For now, Tomas will focus only on the area of ​​students. In class, the student will focus on important areas. The important areas for him are the **public** members of the class because those are the ones he will be able to work with from his source code. He will not deal with private members, because he cannot and will not use them.
 
 ```java
 public class Student {
@@ -286,13 +284,13 @@ public class Student {
 Zdenek found a public constructor and getter methods to get the first name, last name and list of grades.&#x20;
 
 {% hint style="info" %}
-_Getter_ metody jsou metody, které vrací hodnotu nějaké instanční proměnné. Například, pro proměnnou `name` je její getter metoda `getName()`. Pro více info viz například [https://www.w3schools.com/java/java\_encapsulation.asp](https://www.w3schools.com/java/java\_encapsulation.asp).
+_Getter_ methods are methods that return the value of an instance variable. For example, for variable `name` is its getter-method `getName()`. For more information, see, e.g.: [https://www.w3schools.com/java/java\_encapsulation.asp](https://www.w3schools.com/java/java_encapsulation.asp).
 {% endhint %}
 
 So we can test the basic behavior (we repeat again that we will skip the grading area for now).
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 System.out.println("Name: " + s.getName());
 System.out.println("Surname: " + s.getSurname()); 
 ```
@@ -301,7 +299,7 @@ System.out.println("Surname: " + s.getSurname());
 
 ```
 Name: Michal
-Surname: Nový
+Surname: White
 ```
 
 The obtained output corresponds to the input, so this part seems to work correctly.&#x20;
@@ -330,10 +328,10 @@ Tomáš found the methods and deduces their behavior:
 * Remove – to remove an element/student from the recordset
 * Size – returns the number of elements/students in the list
 
-Tomáš can again perform a simple verification of behavior with respect to the specified requirements. First, it tries to insert the student. It first creates a variable for the set of students, then inserts an instance into it. Then it inserts a student into this set using the `add()` method, and finally it needs to find out if the student is in the collection and if it is not in it, for example, multiple times - so it checks the contents of the collection using a `for` loop.
+Tomas can again perform a simple verification of behavior with respect to the specified requirements. First, it tries to insert the student. It first creates a variable for the set of students, then inserts an instance into it. Then it inserts a student into this set using the `add()` method, and finally it needs to find out if the student is in the collection and if it is not in it, for example, multiple times - so it checks the contents of the collection using a `for` loop.
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 
 // create variable to hold a collection of students
 StudentCollection students = new StudentCollection();
@@ -351,14 +349,14 @@ for (int i = 0; i < students.size(); i++) {
 The obtained output is:
 
 ```
-Michal Nový
+Michal White
 ```
 
 So far, everything seems to be working properly. So it tries to insert a second student:
 
 ```
     . . .
-    s = new Student("Jan", "Rychlý");
+    s = new Student("Jan", "Quick");
     students.add(s);
     
     // výpis všech studentů v kolekci
@@ -372,15 +370,15 @@ So far, everything seems to be working properly. So it tries to insert a second 
 And the obtained output is:
 
 ```
-Michal Nový
-Jan Rychlý
+Michal White
+Jan Quick
 ```
 
 Everything looks fine here too. So they will try to insert a student who will only have a surname without a first name (he should be inserted) and also a student who will have neither a first name nor a surname (he should not be inserted).
 
 ```java
 . . . 
-s = new Student(null, "Zdobný");
+s = new Student(null, "Black");
 students.add(s);
 s = new Student(null, "");
 students.add(s);
@@ -393,26 +391,26 @@ for (int i = 0; i < students.size(); i++) {
 ```
 
 ```
-Michal Nový
-Jan Rychlý
-null Zdobný
+Michal White
+Jan Quick
+null Black
 ```
 
 Everything is fine this time too. The following is an attempt to insert a student with the same name (before that, we remove from the source code the statement adding the null student "Stylish" so that the listings shown here are not too long). To be sure, a full listing follows again.
 
 ```java
-Student s = new Student("Michal", "Nový");
+Student s = new Student("Michal", "White");
 
 // create a new empty collection of students
 StudentCollection students = new StudentCollection();
 
 students.add(s);
 
-s = new Student("Jan", "Rychlý");
+s = new Student("Jan", "Quick");
 students.add(s);
 
 // add a new student with the same name
-s = new Student("Jan", "Rychlý");
+s = new Student("Jan", "Quick");
 students.add(s);
 
 // print all students in the collection
@@ -423,12 +421,12 @@ for (int i = 0; i < students.size(); i++) {
 ```
 
 ```
-Michal Nový
-Jan Rychlý
-Jan Rychlý
+Michal White
+Jan Quick
+Jan Quick
 ```
 
-Here the application did not run correctly. Only one student "Jan Rychlý" should have entered. So there is a mistake somewhere. In general, the error can occur in two places:
+Here the application did not run correctly. Only one student "Jan Quick" should have entered. So there is a mistake somewhere. In general, the error can occur in two places:
 
 1. In the case of inserting a student, i.e. in the students.add(s) command. This is probably the first idea that the implementation was not done correctly and Zdeněk is not validating the addition of a student with the same name.
 2. In the case of a student listing, i.e. in the for cycle – theoretically, there can also be the case that the student was not added to the collection, but the collection for some reason lists the last student more than once. This case is very unlikely at first glance, but it needs to be verified, otherwise we could unnecessarily (and especially for a long time) look for an error in a place where there is no error.
@@ -437,7 +435,7 @@ Determining the type of error is very simple - just check how many elements ther
 
 ```java
 . . .
-s = new Student("Jan", "Rychlý");
+s = new Student("Jan", "Quick");
 students.add(s);
 
 System.out.println("\t### number of elements: " + students.size());
@@ -451,14 +449,14 @@ for (int i = 0; i < students.size(); i++) {
 
 ```
 ### number of elements: 3
-Michal Nový
-Jan Rychlý
-Jan Rychlý
+Michal White
+Jan Quick
+Jan Quick
 ```
 
 The number of elements is equal to 3, so the student entered the collection incorrectly and you need to look for an error in the statement `students.add(s);`.  You can simply go to the method definition by placing the mouse cursor over `add()` and using it as a hyperlink, i.e. _Ctrl+click_.
 
-The `add()` method is defined in the `StudentCollection` class and now Tomáš has to pay attention to it in order to be able to find the error.
+The `add()` method is defined in the `StudentCollection` class and now Tomas has to pay attention to it in order to be able to find the error.
 
 ```java
 public class StudentCollection {
@@ -484,11 +482,11 @@ public class StudentCollection {
 } 
 ```
 
-It will focus at the `add` method. In it he finds some `isValid` variable - but the main goal is to find something that evokes the insertion of an element into some set of records - and Tomáš finds the command `data.add(student)`. This command inserts records into a variable `data` that Tomáš finds at the top of the class variable declarations - the `data` variable belongs to a class `ArrayList`, which (by its name) seems to represent a set of records.
+It will focus at the `add` method. In it he finds some `isValid` variable - but the main goal is to find something that evokes the insertion of an element into some set of records - and Tomas finds the command `data.add(student)`. This command inserts records into a variable `data` that Tomas finds at the top of the class variable declarations - the `data` variable belongs to a class `ArrayList`, which (by its name) seems to represent a set of records.
 
 Another important thing is that `data.add(student)` is called conditionally `if (isValid)` is `true`.
 
-Here, Tomáš inserts another auxiliary statement to find out how it is with the insertion of elements into variable `data`.
+Here, Tomas inserts another auxiliary statement to find out how it is with the insertion of elements into variable `data`.
 
 ```java
 . . .
@@ -503,12 +501,12 @@ if (isValid) {
 On subsequent execution, it finds that:
 
 ```
-	### - SC.add(Nový) - isValid: true
-	### - SC.add(Rychlý) - isValid: true
-	### - SC.add(Rychlý) - isValid: true
+	### - SC.add(White) - isValid: true
+	### - SC.add(Quick) - isValid: true
+	### - SC.add(Quick) - isValid: true
 ```
 
-So, the second student "Rychlý" is also inserted into the collection because the `isValid` variable is set to `true`, which is not correct. A quick analysis looks at the previous `if` blocks and finds that:
+So, the second student "Quick" is also inserted into the collection because the `isValid` variable is set to `true`, which is not correct. A quick analysis looks at the previous `if` blocks and finds that:
 
 1. The first if block deals with `isValidString()` ... `getName` ... `getSurname` operations, so it can be assumed that this condition solves the area where it is checked whether the student has the correct name and surname string.
 2. The second if block deals with the `containsStudent(student)` operation, which already by its name evokes a case where it is checked whether a student already exists somewhere.
