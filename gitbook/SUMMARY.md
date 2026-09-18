@@ -1,7 +1,6 @@
 # Table of contents
 
-* [Introduction](README.md)
-* [1 A basic introduction to testing and debugging](1-a-basic-introduction-to-testing-and-debugging.md)
+* [1  Basic Introduction to Testing and Debugging](README.md)
 
 ## Listings
 
@@ -23,7 +22,3 @@
 * [7 Monitoring Variables](debugging/7-monitoring-variables.md)
 * [8 Call Stack](debugging/8-call-stack.md)
 * [9 Other interesting tools](debugging/9-other-interesting-tools.md)
-
-## Profiling
-
-* [Page 1](profiling/page-1.md)

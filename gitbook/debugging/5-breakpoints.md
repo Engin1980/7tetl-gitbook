@@ -37,11 +37,11 @@ A breakpoint can be placed in two simple ways:
 Note that the exact keyboard shorcuts can be changed. Always refer to your Idea settings to check for the correct keyboard shortcut.
 {% endhint %}
 
-![Example of a breakpoint](Imgs/5-demo-breakpoint.jpg)
+![Example of a breakpoint](../.gitbook/assets/5-demo-breakpoint.jpg)
 
 The purple circle shows where to click to insert a breakpoint. Insertion of a breakpoint is reflected by coloring the line with a reddish color and a circle icon of the same color. The following figure shows the insertion of a breakpoint on all command lines.
 
-![Visualisation of breakpoints](Imgs/5-where-breakpoint.jpg)
+![Visualisation of breakpoints](../.gitbook/assets/5-where-breakpoint.jpg)
 
 In the figure, you can notice:
 
@@ -66,7 +66,7 @@ public static void main(String[] args) {
 
 The method adds two numbers and prints the result. We place a breakpoint on the addition line.
 
-![Example 1 - a prepared breakpoint](Imgs/5-example-prepared.jpg)
+![Example 1 - a prepared breakpoint](../.gitbook/assets/5-example-prepared.jpg)
 
 Now let's run the application.
 
@@ -74,7 +74,7 @@ If we start the application classically – F6 – without debug mode, the appli
 
 However, if we start the application in debug mode - Ctrl+F5, the application will start in _DebugRun_ mode and then gets interrupted in _Stepping_ mode (see next chapter) on line 12 after reaching the breakpoint. This will be signaled by a blue colored line:
 
-![Example 1 - executed code, breakpoint hit](Imgs/5-example-run.jpg)
+![Example 1 - executed code, breakpoint hit](../.gitbook/assets/5-example-run.jpg)
 
 The blue-colored line says that the application is in a suspended state, in stepping debugging mode. The highlighted line indicates a command that is yet to be executed.
 
@@ -82,7 +82,7 @@ In the stepping mode, you can dynamically add or remove additional breakpoints t
 
 To resume the application run from suspended mode, use F9 key or the green arrow in the _Debug_ toolbar:
 
-![Example 1 - 'resume' button location](Imgs/5-example-how-resume.jpg)
+![Example 1 - 'resume' button location](../.gitbook/assets/5-example-how-resume.jpg)
 
 {% hint style="info" %}
 Do not use the common _Run_ or _Debug-Run_ commands from the toolbar. Those commands will try to start another instance of your application. Once the application is started in the _Debug-Run_ mode, all related stuff is available using the _Debug_ window, typically located at the bottom of the screen.
@@ -112,11 +112,11 @@ public static void main(String[] args) {
 
 Place two breakpoints in the program and then start the program. The program first stops at the first breakpoint.
 
-![Example 2 - Prepared breakpoints, first one hit](Imgs/5-example2-A.jpg)
+![Example 2 - Prepared breakpoints, first one hit](../.gitbook/assets/5-example2-A.jpg)
 
 If the programmer now wants to continue the calculation, he presses the F9 key and the program runs until it hits the second breakpoint:
 
-![Example 2 - Prepared breakpoings, second one hit](Imgs/5-example2-B.jpg)
+![Example 2 - Prepared breakpoings, second one hit](../.gitbook/assets/5-example2-B.jpg)
 
 If the programmer now starts the program again, the program will reach the end (because there is no more breakpoint in the run path) and will exit.
 
@@ -141,11 +141,11 @@ Breakpoints are primarily used to stop an application from running at a certain 
 
 However, the programmer can also use breakpoints to monitor the progress of the code. An illustrative example can be a simple code snippet with an "if-else" statement.
 
-![Breakpoint - if/else](Imgs/5-if-else.jpg)
+![Breakpoint - if/else](../.gitbook/assets/5-if-else.jpg)
 
 If the programmer places breakpoints in both branches, after starting the application, it must necessarily (that is, if the program passes through the condition on line 9) reach one of these branches. Depending on which of the branches the program stops, the programmer can determine whether the above condition has been evaluated as true or false.
 
-![Breakpoint - if/else run](Imgs/5-if-else-run.jpg)
+![Breakpoint - if/else run](../.gitbook/assets/5-if-else-run.jpg)
 
 So in the example above, the condition was not met, the value of `a` was less than or equal to 10, and the program execution jumped to line 12.
 
@@ -157,7 +157,7 @@ In a similar way, for example, you can test whether the created function is call
 
 Breakpoints can also be used in iterations. It is important to note that a breakpoint is hit repeatedly in in every iteration!
 
-![Breakpoint in the iteration](Imgs/5-iter.jpg)
+![Breakpoint in the iteration](../.gitbook/assets/5-iter.jpg)
 
 In this case, after starting, the application will be stopped at line 5 in the first iteration (when `i` is 0), after restart (F9) in the second iteration (when `i` is 1), etc. This breakpoint will therefore be encountered in each iteration; in total, the program stops here 1,000,000 times.
 
@@ -193,11 +193,11 @@ However, this error only says that the data is not correct, but does not say wha
 
 Now, if the programmer tries to find the error, he must place a breakpoint in the loop handling the reading from the file:
 
-![Breakpoint in iteration](Imgs/5-cond-example-1.jpg)
+![Breakpoint in iteration](../.gitbook/assets/5-cond-example-1.jpg)
 
 The programmer can now check the value in the variable d (it will be explained in the following chapters) as well as see what line of the file it is on (this is shown in the variable i). But since we said that the file has 10,000 lines, it may happen that the very first line is not the one with the error. Therefore, if the programmer restarts the application (F5), one turn of the cycle is performed, and in the next turn of the cycle, the application stops again at a breakpoint:
 
-![Breakpoint in iteration](Imgs/5-cond-example-1.jpg)
+![Breakpoint in iteration](../.gitbook/assets/5-cond-example-1.jpg)
 
 One can notice the difference from stopping at the breakpoint in the previous case - there is no difference. The program simply stops at a breakpoint every time, every iteration. So the programmer can now repeatedly run the program (F9) and perform more and more iterations. When a certain iteration fails and the program crashes, then the programmer will be on the wrong line. If he knows the iteration number, he can look in the source file and see what the problem line of the input file contains.
 
@@ -207,11 +207,11 @@ A programmer can define a condition - once this condition is true, the breakpoin
 
 The breakpoint condition is defined on the breakpoint context menu (see figure). The Properties window opens.
 
-![Breakpoint condition dialog](Imgs/5-break-condition.jpg)
+![Breakpoint condition dialog](../.gitbook/assets/5-break-condition.jpg)
 
 There is a _Condition_ text box in the breakpoint properties window. Here you can now specify any condition indicating when the breakpoint should stop. If we are in the for cycle and we want to stop, if the control variable also has the value 7, all we have to do is enter:
 
-![Breakpoint with condition](Imgs/5-break-condition-set.jpg)
+![Breakpoint with condition](../.gitbook/assets/5-break-condition-set.jpg)
 
 Attention! This is a value evaluating conditions, so the rules apply
 
@@ -221,7 +221,7 @@ Attention! This is a value evaluating conditions, so the rules apply
 
 If a condition is set on a breakpoint, the breakpoint will change its icon:
 
-![Conditional breakpoint - icon](Imgs/5-break-condition-icon.jpg)
+![Conditional breakpoint - icon](../.gitbook/assets/5-break-condition-icon.jpg)
 
 Using this knowledge and the technique of bisecting intervals, the problem of finding a wrong iteration in a cycle can be easily solved.
 
@@ -235,7 +235,7 @@ For example, if I have a value range of 0-1,000 and my unknown error value is 30
 
 Sometimes it is advisable not to delete the breakpoint directly, but only to turn it off for a while and turn it on again later. Both can be done again via the context menu of the breakpoint and the _Enabled_ option.
 
-![Disabled breakpoint](Imgs/5-breakpoint-suspended.jpg)
+![Disabled breakpoint](../.gitbook/assets/5-breakpoint-suspended.jpg)
 
 Once the breakpoint is disabled, it cannot be hit. However, you can re-enable the breakpoint at any time.
 
@@ -245,7 +245,7 @@ This is useful if you have a breakpoint with a condition or other additional set
 
 Using the _More..._ button, you can expand full breakpoint settings. Then, you can adjust several other properties. The most significant are explained in the table below.
 
-![Full breakpoint settings](Imgs/5-breakpoint-all.jpg)
+![Full breakpoint settings](../.gitbook/assets/5-breakpoint-all.jpg)
 
 <table><thead><tr><th width="217">Property</th><th>Meaning</th></tr></thead><tbody><tr><td>Enabled</td><td>Enabled breakpoint can be hit. Disabled breakpoint preservers its configuration, but cannot be hit.</td></tr><tr><td>Suspend</td><td>Defines, how the suspendation behaves in multithreaded environment. All - means all application threads are suspended. Thread - means only the thread hitting the breakpoint is suspended.</td></tr><tr><td>Log ...</td><td>Prints a log (message) into the console window when the breakpoint is hit.</td></tr><tr><td>Log "Breakpoint hit" message</td><td>Logs a message only saying that the breakpoint was hit.</td></tr><tr><td>Log Stack trace</td><td>Logs a full stack trace when a breakpoint is hit. <em>Stack trace</em> is explained later in this course.</td></tr><tr><td>Evaluate and log</td><td>By setting a custom text in the text field, you can print a custom log message to a console. This message can also contain a value of variables or a result of a function calls.</td></tr><tr><td>Remove once hit</td><td>Breakpoint is removed once it is hit. Therefore, the breakpoint is always hit only once.</td></tr><tr><td>Pass count</td><td>You can specify a count, how many times a breakpoint is run through until its hit.</td></tr><tr><td>Instance/Class/Caller filters</td><td>You can specify, which instance/class/caller can invoke the breakpoint. More advanced technique.</td></tr></tbody></table>
 
@@ -257,7 +257,7 @@ Why? If an exception occures in the application, it causes imminent application 
 
 In general Idea is set to handle any exception as a breakpoint. You can adjust this behavior using _Breakpoints_ window, in the section _Java Exception Breakpoints_ - see the left side of the following image.
 
-![Full breakpoint settings](Imgs/5-breakpoint-all.jpg)
+![Full breakpoint settings](../.gitbook/assets/5-breakpoint-all.jpg)
 
 You can add a custom exception-breakpoint handling using the `+` button in the top left corner. Morever, for every exception-breakpoint, you can adjust the similar properties as above; moreover, you can distinquish between caught and uncaught exception handling.
 
@@ -283,7 +283,7 @@ Sometimes there is a situation where the current program needs to be suspended a
 
 At such a moment, the programmer can pause the program using the toolbar and the pause icon.
 
-![Interrupting calculation](Imgs/5-pause.jpg)
+![Interrupting calculation](../.gitbook/assets/5-pause.jpg)
 
 When the program is suspended, the application is interrupted **wherever** the current calculation is performed and marks the next example to be executed. The difference from a breakpoint is that a breakpoint determines the exact line where the program should stop, while a pause stops the program wherever it is.
 

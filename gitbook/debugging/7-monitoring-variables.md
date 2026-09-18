@@ -32,11 +32,11 @@ Directly, in IDEa, you can see the variable value in two ways:
 Again, the important thing here is the _current context_. You cannot see the value of the variable outside of it.
 {% endhint %}
 
-![Direct variable value view](Imgs/7-view.jpg)
+![Direct variable value view](../.gitbook/assets/7-view.jpg)
 
 In the previous image you can see that the value of variable `tmp` is 45 (the cursor is over the `tmp` name, therefore the popup appeared). Also, you can see on the right side of the command, that the `sum` variable value is also 45. You cannot see the current value of variable `i` as it is no longer valid in the current context.
 
-![Direct class value view](Imgs/7-view-2.jpg)
+![Direct class value view](../.gitbook/assets/7-view-2.jpg)
 
 Similarly, for classes, you can see the info about the class type and an id of the instance. You can expand the info to see the instance content. As above, `c` is a variable containing an instance of `Counter` class with id `809`, this instance as one instance variable `id` with value `1`.
 
@@ -46,13 +46,13 @@ Aforementioned _id of the instance_ is a numerical value presented to provide yo
 However, this value is randomly assigned by a compiler on every run.
 {% endhint %}
 
-![Direct collection value view](Imgs/7-view-3.jpg)
+![Direct collection value view](../.gitbook/assets/7-view-3.jpg)
 
 Similarly for lists and arrays (or collections, in general), you can see the size of the list/array and expand the window to see the specific elements.
 
 This direct view is not only applicable on variables, but is also usable for more complex expressions. If you select a (syntactically and semantically meaningful) block of the code, you can evaluate its value by Alt+Click.
 
-![Direct expression evaluation](Imgs/7-watch-exp.jpg)
+![Direct expression evaluation](../.gitbook/assets/7-watch-exp.jpg)
 
 {% hint style="info" %}
 This evaluation is done in two phases. Firstly, select the appropriate part of the code. Secondly, while holding `Alt` key, click on the selection to bring up the pop-up with the result.
@@ -62,13 +62,13 @@ This evaluation is done in two phases. Firstly, select the appropriate part of t
 
 The other option is the **Variables** window, which display the values of all the variables known in the current context. If a new variable is delared, it is automatically displayed in this window. Similarly, if the variable is released, it disapears from the Variables window.
 
-The window is available **only** in the Debug mode, via Debug -> Threads & Variables -> Variables.&#x20;
+The window is available **only** in the Debug mode, via Debug -> Threads & Variables -> Variables.
 
 {% hint style="info" %}
 The Debug Window is automatically displayed in the debug mode. However, if closed, it can be acessed via the main menu: View -> Tool Windows -> Variables.
 {% endhint %}
 
-![Variables window](Imgs/7-vars-window.jpg)
+![Variables window](../.gitbook/assets/7-vars-window.jpg)
 
 Again, you can see the values directly; for complex variable values (collections, classes) you can expand the list to see more details.
 
@@ -78,7 +78,7 @@ The **Watches** window gives you ability to check for the value of any **express
 
 In this window, you have to add and remove the required expressions - _watches_ - manually.
 
-![Watches window](Imgs/7-watch.jpg)
+![Watches window](../.gitbook/assets/7-watch.jpg)
 
 In the image above, you can see two watches:
 
@@ -94,7 +94,7 @@ In addition to the previously mentioned features, the other interesting properit
 Using `Mark object` menu item, you can add a custom label to a specific object. Then, you can see this label everywhere this specific object instance is mentioned. This feature allows you to keep track of a specific object in memory throughout your debugging session. This is particularly useful when you want to monitor the state of an object over time or across different points in your code execution. This feature is available only for objects/instances.
 
 {% hint style="info" %}
-For more info, see [https://www.jetbrains.com/help/rider/Setting\_Labels\_to\_Variables\_Objects\_and\_Watches.html](https://www.jetbrains.com/help/rider/Setting\_Labels\_to\_Variables\_Objects\_and\_Watches.html).
+For more info, see [https://www.jetbrains.com/help/rider/Setting\_Labels\_to\_Variables\_Objects\_and\_Watches.html](https://www.jetbrains.com/help/rider/Setting_Labels_to_Variables_Objects_and_Watches.html).
 {% endhint %}
 
 ### **Set value**
@@ -124,8 +124,8 @@ As mentioned, in Watches window you have to add expressions on your own. You can
 As a watch, you can add any expression, that can produce the value. It may be a single variable name, or an arithmetic/relation expression, a function call evaluation or any combination. Examples:
 
 * `x`
-* `x + y * 6`&#x20;
-* `a > b || b > c && (d || !e)`&#x20;
+* `x + y * 6`
+* `a > b || b > c && (d || !e)`
 * `c.getAge()`
 * `new Person().getAge()`
 * `(5 + 4) + c.getAge()`
@@ -171,19 +171,19 @@ public class Program {
 }
 ```
 
-If you place a breakpoint at the first line in the `main()` and go throught the app via _step-over_s, you will get:
+If you place a breakpoint at the first line in the `main()` and go throught the app via \_step-over\_s, you will get:
 
 ```
 0, 1, 2
 ```
 
-However, if you add a new watch expression `getNextId()` and go through the code by _step-over_s, you will get:
+However, if you add a new watch expression `getNextId()` and go through the code by \_step-over\_s, you will get:
 
 ```
 1, 3, 5
 ```
 
-If you do the same with _step-into_s, you will get:
+If you do the same with \_step-into\_s, you will get:
 
 ```
 2, 6, 10
@@ -200,8 +200,3 @@ So the conclusion: You should not use the side-effect functions in the watches. 
 ## Final remarks
 
 The variables/watches states are not stored in the source codes, but in a separate project folder (`.idea`). If you transfer your project to another computer, without those data, all the settings will be lost.
-
-
-
-
-

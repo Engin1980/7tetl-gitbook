@@ -18,7 +18,7 @@ THE IDEa IDE has a very nice and powerful visualization of chained functions and
 
 Imagine the following example:
 
-![Class diagram of the example](Imgs/9-class.jpg)
+![Class diagram of the example](../.gitbook/assets/9-class.jpg)
 
 In this example, there is an invoice with invoice items. Every invoice item has a title, an amount, a price per item, and a total price per all items. Moreover, the invoice has a customer with a name, surname, and address.
 
@@ -52,20 +52,20 @@ This code takes a list of invoices, converts them into a \`stream\`, and then:
 5. gets only the customers; so, we convert the map/dictionary into a single customers
 6. convert the result into the list.
 
-When executed, even in debugging it is hard to see, what exactly happens inside those chained functions. You will only get a result in the `importantAtlantaCustomers` dictionary. However, you can also go through every part of the stream chain and see, what exactly happens at every level. In the Debug menu, choose `Trace Current Stream Chain` and a new window will appear&#x20;
+When executed, even in debugging it is hard to see, what exactly happens inside those chained functions. You will only get a result in the `importantAtlantaCustomers` dictionary. However, you can also go through every part of the stream chain and see, what exactly happens at every level. In the Debug menu, choose `Trace Current Stream Chain` and a new window will appear
 
-![Selecting the functionality](Imgs/9-trace-0.jpg)
+![Selecting the functionality](../.gitbook/assets/9-trace-0.jpg)
 
 {% hint style="info" %}
 Sometimes it happens that the option `Trace Current Stream Chain` is grayed out even if the code is suspended on a stream chain. In this case, try using the "Search" function - use the zoom icon at the top right IDE corner and look for "Trace Current Stream Chain."
 {% endhint %}
 
-![Selecting one of the stream sources](Imgs/9-trace-a.jpg)
+![Selecting one of the stream sources](../.gitbook/assets/9-trace-a.jpg)
 
-As there are two "stream" parts - the first line and the fifth line (see the `stream()` function call), the IDE will ask which one you are interested in. If you choose the second line (the shorter one), the window with the analysis of the first stream-filter-filter-collect chain will appear. In this window, you can see a tab for every function. You can switch among the tabs and analyze, how the result was achieved for every function.&#x20;
+As there are two "stream" parts - the first line and the fifth line (see the `stream()` function call), the IDE will ask which one you are interested in. If you choose the second line (the shorter one), the window with the analysis of the first stream-filter-filter-collect chain will appear. In this window, you can see a tab for every function. You can switch among the tabs and analyze, how the result was achieved for every function.
 
-![Example of filtering](Imgs/9-trace-b.jpg)
+![Example of filtering](../.gitbook/assets/9-trace-b.jpg)
 
-E.g., for filtering functions, you can check which items pass the filter and are forwarded for further processing. Similarly, for the last tab, you can see how the original list (a sequence) was transformed into the key-value map/dictionary:&#x20;
+E.g., for filtering functions, you can check which items pass the filter and are forwarded for further processing. Similarly, for the last tab, you can see how the original list (a sequence) was transformed into the key-value map/dictionary:
 
-![Example of grouping](Imgs/9-trace-c.jpg)
+![Example of grouping](../.gitbook/assets/9-trace-c.jpg)

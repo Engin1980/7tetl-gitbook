@@ -14,11 +14,7 @@ System.out.println("Today is " + line);
 
 When running, the entire program starts, executes, and we receive the result. However, if we step it, we can go through the commands one by one. As you step, the development environment displays the command that will be executed next. In Idea, for example, the selected line has a blue background. Thus, if the application is stepped step by step, we get:
 
-![Step 1](Imgs/6-step-1.jpg)
-![Step 2](Imgs/6-step-2.jpg)
-![Step 3](Imgs/6-step-3.jpg)
-![Step 4](Imgs/6-step-4.jpg)
-![Step 5](Imgs/6-step-5.jpg)
+![Step 1](../.gitbook/assets/6-step-1.jpg) ![Step 2](../.gitbook/assets/6-step-2.jpg) ![Step 3](../.gitbook/assets/6-step-3.jpg) ![Step 4](../.gitbook/assets/6-step-4.jpg) ![Step 5](../.gitbook/assets/6-step-5.jpg)
 
 Three basic types of steps will be introduced:
 
@@ -36,14 +32,11 @@ They differ from each other in behavior. The following images show different ste
 * Step-over is orange.
 * Step-out is red.
 
-![Different steps behavior illustration - 1](Imgs/6-step-illustration-1.jpg)
-![Different steps behavior illustration - 2](Imgs/6-step-illustration-2.jpg)
-![Different steps behavior illustration - 3](Imgs/6-step-illustration-3.jpg)
-![Different steps behavior illustration - 4](Imgs/6-step-illustration-4.jpg)
+![Different steps behavior illustration - 1](../.gitbook/assets/6-step-illustration-1.jpg) ![Different steps behavior illustration - 2](../.gitbook/assets/6-step-illustration-2.jpg) ![Different steps behavior illustration - 3](../.gitbook/assets/6-step-illustration-3.jpg) ![Different steps behavior illustration - 4](../.gitbook/assets/6-step-illustration-4.jpg)
 
 Before more brief explanation, note that all the steps can be accessed via menu Run -> Debug Actions -> ... or via keyboard shortcuts. Moreover, the most common steps are available as icons in the debug mode.
 
-![Debug mode - step icons](Imgs/6-step-icons.jpg)
+![Debug mode - step icons](../.gitbook/assets/6-step-icons.jpg)
 
 ## Step-Into
 
@@ -51,8 +44,7 @@ The basic step is _step-into_ (sometimes also called _step-in_). This step on a 
 
 This is the basic step to start a program in stepping mode, because starting an application is actually a call to the `main()` method. "Step-into" will step into the `main()` method on the first statement. The next call to the regular commands steps through the program step by step. Commands are executed in the order in which they follow each other. In the case of more complex program constructions (like `if`, `for`, `switch`, ...), it is followed by the command that would follow in the execution of the program.
 
-![Following executed code on stepping - 1](Imgs/6-step-if-1.jpg)
-![Following executed code on stepping - 2](Imgs/6-step-if-2.jpg)
+![Following executed code on stepping - 1](../.gitbook/assets/6-step-if-1.jpg) ![Following executed code on stepping - 2](../.gitbook/assets/6-step-if-2.jpg)
 
 In the example above, the first image shows the situation before execution of `if` condition - line 4. If the value of `x` is 0.7 and we apply _step-in_ to get to the next statement, we will skip to line 7. Line 5 is skipped as it is not evaluated due to false condition, line 6 is skipped as it contains no statement.
 
@@ -80,11 +72,11 @@ private static String convertDateToString(Date dt) {
 
 Let's suspend the run at line 6 (e.g. using the breakpoint):
 
-![Step into - 1](Imgs/6-step-in-fun-1.jpg)
+![Step into - 1](../.gitbook/assets/6-step-in-fun-1.jpg)
 
 Now, lets make a single _step-into_:
 
-![Step into - 2](Imgs/6-step-in-fun-2.jpg)
+![Step into - 2](../.gitbook/assets/6-step-in-fun-2.jpg)
 
 The original line will remain colored dark red. This highlighting indicates that a function call has occurred on that line and the code is somewhere inside the called function. There can be more such tags in the code, depending on how many function calls have been made.
 
@@ -96,7 +88,7 @@ If the programmer steps inside the function in the above example, he jumps to th
 
 However, the situation is a bit more complicated. Because a programmer typically doesn't want to step through the source code of a foreign library (especially with the code of native Java libraries, we typically don't expect them to have a bug), Idea has a setting that allows selected packages to be skipped when stepping. The setting that affects whether functionalities will be skipped during stepping can be found in the menu File -> Settings, and in the open settings window in the left tree we can find Build, Execution, Deplyment -> Debugger -> Stepping. On this page we can find and freely modify the behavior when stepping. We will set the imported packages using the "Do not step into the classes" option.
 
-![Steping settings](Imgs/6-step-sett.jpg)
+![Steping settings](../.gitbook/assets/6-step-sett.jpg)
 
 In general, following cases can occur:
 
@@ -104,9 +96,9 @@ In general, following cases can occur:
 * The programmer has available the source codes for the given libraries, but they are marked as not to be stepped - then the system behaves the same as in the previous point.
 * The programmer has the source codes for the given library at his disposal, and they should be stepped - then the classic step of the method is done. The source codes for the library can be obtained by the programmer either from the author or, in the case of JRE libraries, can be installed as an optional component within the Java SDK installation.
 
-![Step into - 3 - original JDK code](Imgs/6-step-in-fun-3.jpg)
+![Step into - 3 - original JDK code](../.gitbook/assets/6-step-in-fun-3.jpg)
 
-If a programmer steps into foreign code, you can see a slightly different tab color as the file is opened in the read-only mode and cannot be edited (however, you can add another breakpoints here). Diving into extraneous functions can be repeated.&#x20;
+If a programmer steps into foreign code, you can see a slightly different tab color as the file is opened in the read-only mode and cannot be edited (however, you can add another breakpoints here). Diving into extraneous functions can be repeated.
 
 {% hint style="info" %}
 If you would like to do a _step-into_ a code, which will normaly be skipped, use _**force-step-into**_ feature. This will bring you into the called method even if _step-into_ will skip such method. The option is available via menu Run -> Debugging actions -> Force step into.
@@ -114,7 +106,7 @@ If you would like to do a _step-into_ a code, which will normaly be skipped, use
 
 If we step into the constructor of `SimpleDateFormat` class, another _step-into_ request will not invoke the step, but will raise a new highlighting:
 
-![Step into - 4 - smart-step-into](Imgs/6-step-in-fun-4.jpg)
+![Step into - 4 - smart-step-into](../.gitbook/assets/6-step-in-fun-4.jpg)
 
 This means, that there are multiple statements at the line and Idea can step into two different locations. This feature is called _**smart-step-into**_. A programmer then may choose:
 
@@ -124,9 +116,9 @@ This means, that there are multiple statements at the line and Idea can step int
 By clicking on the selected bold text - i.e. either the `this()` constructor or the `getDefault()` method - the programmer can choose which of the methods he wants to _step-into_. By highlighting, the environment indicates to which of the calls the step will be executed. By choosing:
 
 1. `this(…)` evaluates all parameters (including the `getDefault(...)` function) and performs an "up" step to the constructor function;
-2. `getDefault(…)` steps directly into the `getDefault(…)` function, and when completed, a step into the `this(…)` constructor function is performed.&#x20;
+2. `getDefault(…)` steps directly into the `getDefault(…)` function, and when completed, a step into the `this(…)` constructor function is performed.
 
-Finally, some notes w.r.t. the inheritance, overriding and overloading:&#x20;
+Finally, some notes w.r.t. the inheritance, overriding and overloading:
 
 * _Step-into_ distinguishes method overloading and during stepping it goes with the code of the method that "matched" the parameters and will be executed. The same holds for overloaded constructors.
 * _Step-into_ recognizes interfaces or class ancestors from implementations and correctly handles overriding. If we have an abstract class and its implementation, and we create a variable typed as an abstract class with value of its implementation (see the next example), stepping will correctly enter the code of the implementation and not the code of the abstract class.
@@ -172,13 +164,13 @@ Calling _step-out_ in the `main()` method completes the calculation and terminat
 
 A specific variant in Idea is step-_**out-of-code-block**_. It is useful in situations, when you are in the middle of iteration (`for`, `while`). By using _step-out_ you will get out of the method, but you only wants to get out of the iteration. The option is available via Run -> Debugging Actions -> Step Out of Code Block menu.
 
-![Step out-of-code-block example](Imgs/6-step-out-of-code-block.jpg)
+![Step out-of-code-block example](../.gitbook/assets/6-step-out-of-code-block.jpg)
 
 ## Step-Over
 
-The third basic type of step is _step-over_. This step is similar to the _step-into_, but the function steps over. Again, the code of the stepped-over function is calculated and evaluated. So if the programmer on a particular line has a function call:&#x20;
+The third basic type of step is _step-over_. This step is similar to the _step-into_, but the function steps over. Again, the code of the stepped-over function is calculated and evaluated. So if the programmer on a particular line has a function call:
 
-* If he wants to enter the function, he chooses _step-into._&#x20;
+* If he wants to enter the function, he chooses _step-into._
 * If he does not want to enter the function and wants to continue stepping through the application at the same level he is currently at, he chooses _step-over_.
 
 {% hint style="info" %}
