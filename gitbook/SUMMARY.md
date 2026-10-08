@@ -1,6 +1,6 @@
 # Table of contents
 
-* [1  Basic Introduction to Testing and Debugging](README.md)
+* [1 Basic Introduction to Testing and Debugging](README.md)
 
 ## Listings
 
@@ -8,6 +8,7 @@
 * [3 Logging](listings/3-logging.md)
 * [3-a Logging with TinyLog](listings/3-a-logging-with-tinylog.md)
 * [3-b Logging with Log4j2](listings/3-b-logging-with-log4j2.md)
+* [3-x How to Create Console Maven Project](listings/3-x-how-to-create-console-maven-project.md)
 
 ## Exceptions & Testing
 

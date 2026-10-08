@@ -14,6 +14,10 @@ We will:
 
 We will use **Maven** to manage our dependencies. If you already have a `pom.xml` file, open it and add TinyLog.
 
+{% hint style="info" %}
+To create Maven project, see "3-x How to Create Console Maven Project" document.
+{% endhint %}
+
 If not, create a new Maven project and include this in your `pom.xml`:
 
 ```xml

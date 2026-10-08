@@ -16,6 +16,10 @@ The whole domain is a bit more complicated. To see the full info, follow [https:
 
 Here we will show a minimal working example of logging using Log4J2. We expect the project build on Maven in Java 19+.
 
+{% hint style="info" %}
+To create Maven project, see "3-x How to Create Console Maven Project" document.
+{% endhint %}
+
 To set up the project in Idea for logging, a several steps have to be done:
 
 1. Add the reference to a logging API and a logging framework.
