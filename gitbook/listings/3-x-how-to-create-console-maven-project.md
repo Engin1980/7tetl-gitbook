@@ -12,8 +12,6 @@ Without Maven, you need to add the libraries into the project on your own. This 
 
 ## Maven project creation
 
-### Using 'Quickstart' archetype
-
 Archetypes are predefined templates used to create and initialize the project into the basic state. For simple console application, we can use obsolete, but stil valid `quickstart` archetype.
 
 To create a simple Maven project in IntelliJ IDEA using the Quickstart archetype, select **New Project** and choose **Maven** as the project type. Enable the option **Create from Archetype** and select the archetype **org.apache.maven.archetypes:maven-archetype-quickstart**. Next, specify the project coordinates, including the **GroupId** (typically representing the organization or package namespace) and **ArtifactId** (the project name). After confirming the settings, IntelliJ IDEA invokes Maven, generates the project structure, downloads the required dependencies, and opens the newly created project.
@@ -31,7 +29,7 @@ my-project/
     │   └── java
     │       └── com
     │           └── example
-    │               └── App.java
+    │               └── App.java   <-- here is the main() method
     └── test
         └── java
             └── com
@@ -53,54 +51,3 @@ public class App {
 {% endcode %}
 
 Although the Quickstart archetype is primarily intended for standard Java applications, it remains a convenient way to create a minimal Maven project and understand the default Maven project structure before moving on to more complex frameworks such as Spring Boot.
-
-Note that the layout of the project is a bit more complicated as it also contains the folders for tests.
-
-### Empty new project
-
-The other option is to create empty new maven project. To do so:
-
-1. &#x20;Create a new project in Idea (_File -> New -> Project_).
-2. Select _Empty Project_ and fill in name and location.
-3. Confirm the dialog.
-
-Once created, you will have empty project only with `.idea` folder.
-
-4. Add into the root of the project text file `pom.xml`, what will be Maven definition file.
-5. Once added (or a few moments later), the Idea will ask you that "It detects the Maven pom.xml. Would you like to load it?" Confirm.
-6. Fill in the `pom.xml` with the following code. Remember to update the code where necessary (group/artifact/version).
-
-{% code lineNumbers="true" %}
-```
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>cz.osu.prf.kip</groupId>
-    <artifactId>tinyLogDemo</artifactId>
-    <version>0.1.0</version>
-
-    <properties>
-        <maven.compiler.release>21</maven.compiler.release>
-    </properties>
-</project>
-```
-{% endcode %}
-
-7. In the root of the project, create `src` folder.
-8. Mark the folder as "Sources Root" (use context menu over the folder, _Mark Directory As -> Sources Root_).
-9. In the `src` folder, create `Program.java` file and fill in the following simple code:
-
-{% code lineNumbers="true" %}
-```
-public class Program {
-
-  public static void main(String[] args) {
-    System.out.println("Hello, World!");
-  }
-}
-```
-{% endcode %}
-
-### Summary
-
-The both previous methods are equal. The first one is quicker, but the created project contains more artifacts and may be confusing for a newbie. The second one is more complicated, but the final project is cleaner.

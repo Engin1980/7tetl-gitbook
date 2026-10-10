@@ -155,6 +155,7 @@ Here are the most common placeholders you can use in `writer.format`:
 | `{package}`   | Package name                          | com.example                    |
 | `{method}`    | Method name                           | main                           |
 | `{line}`      | Line number of the log call           | 15                             |
+| `{file}`      | File name of the log call             | `main.java`                    |
 | `{message}`   | The actual log message                | Player Alice scored 42 points! |
 | `{exception}` | Stack trace if an exception is logged | java.lang.Exception...         |
 
